@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		3300475BAB574D5530764CC3 /* Pods_testTask.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3122DC841BBAC0843675948 /* Pods_testTask.framework */; };
+		F61EBF932455A06F00604EE3 /* InfoScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61EBF922455A06F00604EE3 /* InfoScreenModel.swift */; };
+		F61EBF962455F0B800604EE3 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61EBF952455F0B800604EE3 /* UserDefaultsManager.swift */; };
+		F62FED3924557EEA00D4FE74 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62FED3824557EEA00D4FE74 /* InfoViewController.swift */; };
+		F62FED3E2455877E00D4FE74 /* InfoCollectonViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62FED3D2455877E00D4FE74 /* InfoCollectonViewCell.swift */; };
 		F65E5D362450349000654583 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65E5D352450349000654583 /* AppDelegate.swift */; };
 		F65E5D382450349000654583 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65E5D372450349000654583 /* SceneDelegate.swift */; };
 		F65E5D3A2450349000654583 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65E5D392450349000654583 /* ViewController.swift */; };
@@ -30,13 +34,17 @@
 		F6E8AFAB245454D90068D3B1 /* CatalogCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E8AFAA245454D90068D3B1 /* CatalogCollectionViewCell.swift */; };
 		F6E8AFB1245457E60068D3B1 /* firstDrawNoNumb.svg in Resources */ = {isa = PBXBuildFile; fileRef = F6E8AFB0245457E60068D3B1 /* firstDrawNoNumb.svg */; };
 		F6F61F40245469C60004190D /* method-draw-image_4.svg in Resources */ = {isa = PBXBuildFile; fileRef = F6F61F3F245469C60004190D /* method-draw-image_4.svg */; };
-		F6F61F42245484240004190D /* colorCollectionViewPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F61F41245484240004190D /* colorCollectionViewPickerCell.swift */; };
+		F6F61F42245484240004190D /* ColorCollectionViewPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F61F41245484240004190D /* ColorCollectionViewPickerCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		DB428D83A880E27891F1E531 /* Pods-testTask.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-testTask.debug.xcconfig"; path = "Target Support Files/Pods-testTask/Pods-testTask.debug.xcconfig"; sourceTree = "<group>"; };
 		DC8C4779FF48410289D2FF43 /* Pods-testTask.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-testTask.release.xcconfig"; path = "Target Support Files/Pods-testTask/Pods-testTask.release.xcconfig"; sourceTree = "<group>"; };
 		F3122DC841BBAC0843675948 /* Pods_testTask.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_testTask.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F61EBF922455A06F00604EE3 /* InfoScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoScreenModel.swift; sourceTree = "<group>"; };
+		F61EBF952455F0B800604EE3 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		F62FED3824557EEA00D4FE74 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		F62FED3D2455877E00D4FE74 /* InfoCollectonViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCollectonViewCell.swift; sourceTree = "<group>"; };
 		F65E5D322450349000654583 /* testTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = testTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F65E5D352450349000654583 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F65E5D372450349000654583 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -61,7 +69,7 @@
 		F6E8AFAA245454D90068D3B1 /* CatalogCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogCollectionViewCell.swift; sourceTree = "<group>"; };
 		F6E8AFB0245457E60068D3B1 /* firstDrawNoNumb.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = firstDrawNoNumb.svg; sourceTree = "<group>"; };
 		F6F61F3F245469C60004190D /* method-draw-image_4.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "method-draw-image_4.svg"; sourceTree = "<group>"; };
-		F6F61F41245484240004190D /* colorCollectionViewPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = colorCollectionViewPickerCell.swift; sourceTree = "<group>"; };
+		F6F61F41245484240004190D /* ColorCollectionViewPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCollectionViewPickerCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +101,24 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		F61EBF942455F09F00604EE3 /* UserDefaultsManager */ = {
+			isa = PBXGroup;
+			children = (
+				F61EBF952455F0B800604EE3 /* UserDefaultsManager.swift */,
+			);
+			path = UserDefaultsManager;
+			sourceTree = "<group>";
+		};
+		F62FED3A2455870E00D4FE74 /* InfoScreen */ = {
+			isa = PBXGroup;
+			children = (
+				F62FED3824557EEA00D4FE74 /* InfoViewController.swift */,
+				F62FED3D2455877E00D4FE74 /* InfoCollectonViewCell.swift */,
+				F61EBF922455A06F00604EE3 /* InfoScreenModel.swift */,
+			);
+			path = InfoScreen;
+			sourceTree = "<group>";
+		};
 		F65E5D292450349000654583 = {
 			isa = PBXGroup;
 			children = (
@@ -114,6 +140,7 @@
 		F65E5D342450349000654583 /* testTask */ = {
 			isa = PBXGroup;
 			children = (
+				F61EBF942455F09F00604EE3 /* UserDefaultsManager */,
 				F6E8AFA3245451030068D3B1 /* Resources */,
 				F6BCC64324519816005D496B /* Extension */,
 				F6BCC642245194B4005D496B /* SettingsScreen */,
@@ -172,9 +199,10 @@
 		F6E8AFA0245450730068D3B1 /* DrawScreen */ = {
 			isa = PBXGroup;
 			children = (
+				F62FED3A2455870E00D4FE74 /* InfoScreen */,
 				F6CA95FE245217D80070C095 /* DrawViewController.swift */,
 				F6E8AFA1245450900068D3B1 /* DrawAreaModel.swift */,
-				F6F61F41245484240004190D /* colorCollectionViewPickerCell.swift */,
+				F6F61F41245484240004190D /* ColorCollectionViewPickerCell.swift */,
 			);
 			path = DrawScreen;
 			sourceTree = "<group>";
@@ -312,16 +340,20 @@
 				F6E8AFA7245451590068D3B1 /* Data.swift in Sources */,
 				F65E5D3A2450349000654583 /* ViewController.swift in Sources */,
 				F65E5D362450349000654583 /* AppDelegate.swift in Sources */,
+				F62FED3924557EEA00D4FE74 /* InfoViewController.swift in Sources */,
 				F6D41B592450F2E300C33BAE /* MenuBarCollectionViewCell.swift in Sources */,
 				F6CA95FF245217D80070C095 /* DrawViewController.swift in Sources */,
 				F6BCC64524519828005D496B /* Extension + SegmentedControl.swift in Sources */,
 				F6E8AFA2245450900068D3B1 /* DrawAreaModel.swift in Sources */,
 				F6CA95FD2451A5170070C095 /* SettingsItem.swift in Sources */,
 				F6CA95FB2451A2F20070C095 /* SettingsCollectionViewCell.swift in Sources */,
-				F6F61F42245484240004190D /* colorCollectionViewPickerCell.swift in Sources */,
+				F6F61F42245484240004190D /* ColorCollectionViewPickerCell.swift in Sources */,
 				F65E5D382450349000654583 /* SceneDelegate.swift in Sources */,
+				F61EBF932455A06F00604EE3 /* InfoScreenModel.swift in Sources */,
 				F6BCC64124518D75005D496B /* MenuBarViewController.swift in Sources */,
 				F6E8AFAB245454D90068D3B1 /* CatalogCollectionViewCell.swift in Sources */,
+				F62FED3E2455877E00D4FE74 /* InfoCollectonViewCell.swift in Sources */,
+				F61EBF962455F0B800604EE3 /* UserDefaultsManager.swift in Sources */,
 				F6D9AD9D2450399D00FF92C3 /* Queue.swift in Sources */,
 				F6D9AD9F2450929800FF92C3 /* CatalogTableViewCell.swift in Sources */,
 				F6D41B5B2450FA6600C33BAE /* SettingsViewController.swift in Sources */,

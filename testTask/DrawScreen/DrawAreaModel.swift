@@ -13,6 +13,6 @@ struct DrawAreaModel {
     var id: Int
     var imagePathWithNumbers: String
     var imagePathWithoutNumbers: String
-    var nodes: [Int: Int] = [:]
-    var correctColors: [Int: Color] = [:]
+    var nodes: [Int] = []
+    var correctColors: [Color] = []
 }

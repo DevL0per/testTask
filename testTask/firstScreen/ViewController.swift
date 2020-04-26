@@ -82,8 +82,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource, CatalogTab
     
     func showDrawScreen(at index: Int) {
         let dataImage = data[index]
-        self.modalPresentationStyle = .fullScreen
         let vc = DrawViewController()
+        vc.modalPresentationStyle = .fullScreen
         vc.drawAreaModel = dataImage
         self.present(vc, animated: true, completion: nil)
     }
