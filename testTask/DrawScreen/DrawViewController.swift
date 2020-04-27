@@ -49,7 +49,12 @@ class DrawViewController: UIViewController {
         return button
     }()
     
-    private let shopTopView = PaintShopTopView()
+    private let shopTopView: ViewWithShadow = {
+        let view = ViewWithShadow()
+        view.layer.cornerRadius = 25
+        return view
+    }()
+    
     private let paintCountLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -66,7 +71,7 @@ class DrawViewController: UIViewController {
         button.layer.cornerRadius = 12
         button.layer.masksToBounds = true
         button.translatesAutoresizingMaskIntoConstraints = false
-        //button.addTarget(self, action: #selector(magicStickInfoButtonWasPressed), for: .touchUpInside)
+        button.addTarget(self, action: #selector(showShow), for: .touchUpInside)
         return button
     }()
     
@@ -146,6 +151,12 @@ class DrawViewController: UIViewController {
         getAllColorizedTags()
     }
     
+    @objc private func showShow() {
+        let vc = ShopViewController()
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
+    }
+    
     @objc private func magicStickButtonWasPressed() {
         for valueTag in 1...drawAreaModel.nodes[currentColorIndex] {
             let tag = "\(currentColorIndex+1)_\(valueTag)"
@@ -171,12 +182,12 @@ class DrawViewController: UIViewController {
     
     @objc private func magicStickInfoButtonWasPressed() {
         
-        let blure = UIBlurEffect(style: .light)
+        let blure = UIBlurEffect(style: .dark)
         visualEffect = UIVisualEffectView(effect: blure)
         visualEffect.alpha = 0
         visualEffect.frame = view.frame
-        view.addSubview(visualEffect)
         
+        view.addSubview(visualEffect)
         vc = InfoViewController()
         vc!.delegate = self
         vc!.view.frame = UIApplication.shared.windows[0].frame
@@ -317,7 +328,7 @@ class DrawViewController: UIViewController {
     
     private func layoutTopContentView() {
         view.addSubview(topContentView)
-        topContentView.topAnchor.constraint(equalTo: view.topAnchor, constant: 15).isActive = true
+        topContentView.topAnchor.constraint(equalTo: view.topAnchor, constant: 25).isActive = true
         topContentView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         topContentView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         topContentView.heightAnchor.constraint(equalToConstant: 50).isActive = true
@@ -461,12 +472,11 @@ extension DrawViewController: InfoViewControllerDelegate {
     }
 }
 
-class PaintShopTopView: UIView {
+class ViewWithShadow: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
-        layer.cornerRadius = 25
         translatesAutoresizingMaskIntoConstraints = false
     }
     

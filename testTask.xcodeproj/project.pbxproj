@@ -10,6 +10,8 @@
 		3300475BAB574D5530764CC3 /* Pods_testTask.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3122DC841BBAC0843675948 /* Pods_testTask.framework */; };
 		F61EBF932455A06F00604EE3 /* InfoScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61EBF922455A06F00604EE3 /* InfoScreenModel.swift */; };
 		F61EBF962455F0B800604EE3 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61EBF952455F0B800604EE3 /* UserDefaultsManager.swift */; };
+		F61EBF992456147A00604EE3 /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61EBF982456147A00604EE3 /* ShopViewController.swift */; };
+		F61EBF9B245616FB00604EE3 /* ShopCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61EBF9A245616FB00604EE3 /* ShopCollectionViewCell.swift */; };
 		F62FED3924557EEA00D4FE74 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62FED3824557EEA00D4FE74 /* InfoViewController.swift */; };
 		F62FED3E2455877E00D4FE74 /* InfoCollectonViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62FED3D2455877E00D4FE74 /* InfoCollectonViewCell.swift */; };
 		F65E5D362450349000654583 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65E5D352450349000654583 /* AppDelegate.swift */; };
@@ -43,6 +45,8 @@
 		F3122DC841BBAC0843675948 /* Pods_testTask.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_testTask.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F61EBF922455A06F00604EE3 /* InfoScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoScreenModel.swift; sourceTree = "<group>"; };
 		F61EBF952455F0B800604EE3 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		F61EBF982456147A00604EE3 /* ShopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
+		F61EBF9A245616FB00604EE3 /* ShopCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopCollectionViewCell.swift; sourceTree = "<group>"; };
 		F62FED3824557EEA00D4FE74 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		F62FED3D2455877E00D4FE74 /* InfoCollectonViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCollectonViewCell.swift; sourceTree = "<group>"; };
 		F65E5D322450349000654583 /* testTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = testTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,6 +113,15 @@
 			path = UserDefaultsManager;
 			sourceTree = "<group>";
 		};
+		F61EBF972456145A00604EE3 /* ShopScreen */ = {
+			isa = PBXGroup;
+			children = (
+				F61EBF982456147A00604EE3 /* ShopViewController.swift */,
+				F61EBF9A245616FB00604EE3 /* ShopCollectionViewCell.swift */,
+			);
+			path = ShopScreen;
+			sourceTree = "<group>";
+		};
 		F62FED3A2455870E00D4FE74 /* InfoScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -143,6 +156,7 @@
 				F61EBF942455F09F00604EE3 /* UserDefaultsManager */,
 				F6E8AFA3245451030068D3B1 /* Resources */,
 				F6BCC64324519816005D496B /* Extension */,
+				F61EBF972456145A00604EE3 /* ShopScreen */,
 				F6BCC642245194B4005D496B /* SettingsScreen */,
 				F6D41B572450F2CF00C33BAE /* MenuBar */,
 				F6D41B542450E87E00C33BAE /* firstScreen */,
@@ -338,6 +352,7 @@
 			files = (
 				F6D41B562450E89E00C33BAE /* MenuBar.swift in Sources */,
 				F6E8AFA7245451590068D3B1 /* Data.swift in Sources */,
+				F61EBF992456147A00604EE3 /* ShopViewController.swift in Sources */,
 				F65E5D3A2450349000654583 /* ViewController.swift in Sources */,
 				F65E5D362450349000654583 /* AppDelegate.swift in Sources */,
 				F62FED3924557EEA00D4FE74 /* InfoViewController.swift in Sources */,
@@ -355,6 +370,7 @@
 				F62FED3E2455877E00D4FE74 /* InfoCollectonViewCell.swift in Sources */,
 				F61EBF962455F0B800604EE3 /* UserDefaultsManager.swift in Sources */,
 				F6D9AD9D2450399D00FF92C3 /* Queue.swift in Sources */,
+				F61EBF9B245616FB00604EE3 /* ShopCollectionViewCell.swift in Sources */,
 				F6D9AD9F2450929800FF92C3 /* CatalogTableViewCell.swift in Sources */,
 				F6D41B5B2450FA6600C33BAE /* SettingsViewController.swift in Sources */,
 			);
