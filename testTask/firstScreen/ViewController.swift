@@ -57,7 +57,8 @@ class ViewController: UIViewController {
         topView.heightAnchor.constraint(equalToConstant: Constants.topViewHeight).isActive = true
         
         topViewLabel.centerXAnchor.constraint(equalTo: topView.centerXAnchor).isActive = true
-        topViewLabel.topAnchor.constraint(equalTo: topView.topAnchor, constant: 28).isActive = true
+        let margins = view.layoutMarginsGuide
+        topViewLabel.topAnchor.constraint(equalTo: margins.topAnchor, constant: 10).isActive = true
     }
     
     private func layoutTableView() {

@@ -10,7 +10,7 @@ import UIKit
 import Macaw
 
 fileprivate struct Constants {
-    static let colorImageSize: CGFloat = 25
+    static let colorImageSize: CGFloat = 20
 }
 
 class ColorCollectionViewPickerCell: UICollectionViewCell {
@@ -33,6 +33,30 @@ class ColorCollectionViewPickerCell: UICollectionViewCell {
     let shapeLayer = CAShapeLayer()
     var numberOfNodes: Int!
     var numberOfColorizedNodes: Int = 0
+
+    override var isHighlighted: Bool {
+        didSet {
+            if isHighlighted {
+                colorImage.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+                setShapePath(withConstant: 0)
+            } else {
+                colorImage.transform = CGAffineTransform(scaleX: 1, y: 1)
+                setShapePath(withConstant: 2)
+            }
+        }
+    }
+    
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {
+                colorImage.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+                setShapePath(withConstant: 0)
+            } else {
+                colorImage.transform = CGAffineTransform(scaleX: 1, y: 1)
+                setShapePath(withConstant: 2)
+            }
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -60,16 +84,19 @@ class ColorCollectionViewPickerCell: UICollectionViewCell {
         layer.addSublayer(shapeLayer)
         
         shapeLayer.frame = bounds
-        let path = UIBezierPath(arcCenter: CGPoint(x: bounds.origin.x+12, y: bounds.origin.y+12),
-                                radius: bounds.height/2,
-                                startAngle: 3*CGFloat.pi/2,
-                                endAngle: (CGFloat.pi*3.60),
-                                clockwise: true)
-        shapeLayer.path = path.cgPath
+        setShapePath(withConstant: 2)
         shapeLayer.fillColor = .none
         shapeLayer.strokeColor = UIColor.black.cgColor
         shapeLayer.lineWidth = 3
         shapeLayer.strokeEnd = 0
+    }
+    
+    private func setShapePath(withConstant constant: CGFloat) {
+        shapeLayer.path = UIBezierPath(arcCenter: CGPoint(x: bounds.origin.x+12.5, y: bounds.origin.y+12.5),
+                                radius: bounds.height/2-constant,
+                                startAngle: 3*CGFloat.pi/2,
+                                endAngle: (CGFloat.pi*3.60),
+                                clockwise: true).cgPath
     }
  
     // MARK: - elements layouts

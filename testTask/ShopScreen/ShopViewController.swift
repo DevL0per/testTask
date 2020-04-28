@@ -84,7 +84,8 @@ class ShopViewController: UIViewController {
     private let backButton: ButtonWithShadow = {
         let button = ButtonWithShadow()
         button.layer.cornerRadius = 25
-        button.setImage(UIImage(named: "092-cancel-2"), for: .normal)
+        button.setImage(UIImage(named: "cancelButton"), for: .normal)
+        button.setImage(UIImage(named: "cancelButtonSelected"), for: .highlighted)
         button.addTarget(self, action: #selector(backButtonWasPressed), for: .touchUpInside)
         return button
     }()
@@ -121,10 +122,11 @@ class ShopViewController: UIViewController {
     
     private func layoutCollectionView() {
         
+        let margins = view.layoutMarginsGuide
         view.addSubview(shadowView)
         shadowView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15).isActive = true
         shadowView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15).isActive = true
-        shadowView.topAnchor.constraint(equalTo: view.topAnchor, constant: 25).isActive = true
+        shadowView.topAnchor.constraint(equalTo: margins.topAnchor, constant: 10).isActive = true
         shadowView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 10).isActive = true
         
         shadowView.addSubview(collectionView)
@@ -204,8 +206,6 @@ class ShopViewController: UIViewController {
         collectionView.addSubview(stackView)
         stackView.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 15).isActive = true
         stackView.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor).isActive = true
-        //infoContentView.widthAnchor.constraint(equalToConstant: 131).isActive = true
-        //infoContentView.heightAnchor.constraint(equalToConstant: 16).isActive = true
     }
 }
 

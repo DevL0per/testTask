@@ -12,14 +12,14 @@ import Macaw
 
 let firstSectionDrawsData: [DrawAreaModel] = [
     DrawAreaModel(id: 1, imagePathWithNumbers: "firstDrawWithNumbers", imagePathWithoutNumbers: "firstDrawNoNumbers",
-                  nodes: [22, 43, 5, 6, 49, 7],
-                  correctColors: [Color.rgb(r: 45, g: 126, b: 153), Color.blue, Color.green, Color.yellow, Color.rgb(r: 45, g: 126, b: 193), Color.green]),
+                  nodes: [22, 43, 5, 8, 49, 7],
+                  correctColors: [Color.rgb(r: 45, g: 126, b: 153), Color.blue, Color.green, Color.rgb(r: 247, g: 199, b: 88), Color.rgb(r: 45, g: 126, b: 193), Color.rgb(r: 93, g: 17, b: 247)]),
     DrawAreaModel(id: 2, imagePathWithNumbers: "firstDrawWithNumbers", imagePathWithoutNumbers: "firstDrawNoNumbers",
-                  nodes: [22, 43, 5, 6, 49, 7],
-                  correctColors: [Color.rgb(r: 45, g: 126, b: 153), Color.blue, Color.green, Color.yellow, Color.rgb(r: 45, g: 126, b: 193), Color.green]),
+                  nodes: [22, 43, 5, 8, 49, 7],
+                  correctColors: [Color.rgb(r: 45, g: 126, b: 153), Color.blue, Color.green, Color.rgb(r: 247, g: 199, b: 88), Color.rgb(r: 45, g: 126, b: 193), Color.rgb(r: 93, g: 17, b: 247)]),
     DrawAreaModel(id: 3, imagePathWithNumbers: "firstDrawWithNumbers", imagePathWithoutNumbers: "firstDrawNoNumbers",
-                  nodes: [22, 43, 5, 6, 49, 7],
-                  correctColors: [Color.rgb(r: 45, g: 126, b: 153), Color.blue, Color.green, Color.yellow, Color.rgb(r: 45, g: 126, b: 193), Color.green])
+                  nodes: [22, 43, 5, 8, 49, 7],
+                  correctColors: [Color.rgb(r: 45, g: 126, b: 153), Color.blue, Color.green, Color.rgb(r: 247, g: 199, b: 88), Color.rgb(r: 45, g: 126, b: 193), Color.rgb(r: 93, g: 17, b: 247)])
 ]
 
 let secondSectionDrawsData: [DrawAreaModel] = [
@@ -51,6 +51,4 @@ let drawsSections: [DrawSection] = [
     DrawSection(icon: UIImage(named: "flowerSectionIcon")!, nameOfSection: "FLOWERS", draws: secondSectionDrawsData),
     DrawSection(icon: UIImage(named: "birdsSectionIcon")!, nameOfSection: "BIRDS", draws: thirdSectionDrawsData)
 ]
-
-
 

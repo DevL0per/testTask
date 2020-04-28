@@ -14,7 +14,7 @@ fileprivate struct Constants {
     static let magicStickCost = 5000
     static let magicLoupeCost = 3000
     static let buttonSize: CGFloat = 50
-    static let bottomViewWidth: CGFloat = 128
+    static let bottomViewHeight: CGFloat = 128
     static let contentViewHeight: CGFloat = 50
     static let shopTopViewWidth: CGFloat = 160
 }
@@ -54,6 +54,7 @@ class DrawViewController: UIViewController {
     private let topContentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.masksToBounds = false
         return view
     }()
     private let backButton: ButtonWithShadow = {
@@ -85,11 +86,26 @@ class DrawViewController: UIViewController {
         button.addTarget(self, action: #selector(showShop), for: .touchUpInside)
         return button
     }()
-    private let settingsButton: ButtonWithShadow = {
+    
+    private lazy var settingsButton: ButtonWithShadow = {
         let button = ButtonWithShadow()
         button.setImage(UIImage(named: "100-gear"), for: .normal)
+        button.addTarget(self, action: #selector(settingsButtonWasPressed), for: .touchUpInside)
         return button
     }()
+    
+    private lazy var turnOffSoundButton: ButtonWithShadow = {
+        let button = ButtonWithShadow()
+        button.setImage(UIImage(named: "audioOn"), for: .normal)
+        return button
+    }()
+    
+    private lazy var turnVibroButton: ButtonWithShadow = {
+        let button = ButtonWithShadow()
+        button.setImage(UIImage(named: "telephone"), for: .normal)
+        return button
+    }()
+    
     private lazy var magicStickButton: ButtonWithShadow = {
         let button = ButtonWithShadow()
         button.setImage(UIImage(named: "magic stick"), for: .normal)
@@ -114,8 +130,8 @@ class DrawViewController: UIViewController {
         button.addTarget(self, action: #selector(loupeButtonWasPressed), for: .touchUpInside)
         return button
     }()
-    lazy var drawArea: SVGView = {
-        let svgView = SVGView()
+    lazy var drawArea: MySVGView = {
+        let svgView = MySVGView()
         svgView.translatesAutoresizingMaskIntoConstraints = false
         svgView.backgroundColor = .white
         svgView.fileName = drawAreaModel.imagePathWithoutNumbers
@@ -160,6 +176,20 @@ class DrawViewController: UIViewController {
         getNumberOfPaints()
     }
     
+    
+    @objc private func settingsButtonWasPressed() {
+        var imageName = ""
+        if turnVibroButton.isHidden {
+            imageName = "gearSelected"
+        } else {
+            imageName = "100-gear"
+        }
+        settingsButton.setImage(UIImage(named: imageName), for: .normal)
+        UIView.animate(withDuration: 0.3) { [unowned self] in
+            self.turnVibroButton.isHidden = !self.turnVibroButton.isHidden
+            self.turnOffSoundButton.isHidden = !self.turnOffSoundButton.isHidden
+        }
+    }
     
     //Buttons actions
     @objc private func showShop() {
@@ -255,6 +285,7 @@ class DrawViewController: UIViewController {
         layoutMagicStickInfoButton()
         layoutTopContentView()
         layoutDrawArea()
+        layoutSettingsButtons()
     }
     
     private func checkIfUserTappedOnTheBooster() {
@@ -389,8 +420,9 @@ class DrawViewController: UIViewController {
     }
     
     private func layoutCollectionView() {
+        let margins = view.layoutMarginsGuide
         bottomView.addSubview(colorCollectionViewPicker)
-        colorCollectionViewPicker.bottomAnchor.constraint(equalTo: bottomView.bottomAnchor, constant: -12).isActive = true
+        colorCollectionViewPicker.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: -5).isActive = true
         colorCollectionViewPicker.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor, constant: 20).isActive = true
         colorCollectionViewPicker.heightAnchor.constraint(equalToConstant: 50).isActive = true
         colorCollectionViewPicker.leadingAnchor.constraint(equalTo: bottomView.leadingAnchor, constant: 1).isActive = true
@@ -402,7 +434,7 @@ class DrawViewController: UIViewController {
         bottomView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15).isActive = true
         bottomView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        bottomView.heightAnchor.constraint(equalToConstant: Constants.bottomViewWidth).isActive = true
+        bottomView.heightAnchor.constraint(equalToConstant: Constants.bottomViewHeight).isActive = true
     }
     
     private func layoutBoosterView() {
@@ -415,7 +447,8 @@ class DrawViewController: UIViewController {
     
     private func layoutTopContentView() {
         view.addSubview(topContentView)
-        topContentView.topAnchor.constraint(equalTo: view.topAnchor, constant: 25).isActive = true
+        let margins = view.layoutMarginsGuide
+        topContentView.topAnchor.constraint(equalTo: margins.topAnchor, constant: 6).isActive = true
         topContentView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         topContentView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         topContentView.heightAnchor.constraint(equalToConstant: Constants.contentViewHeight).isActive = true
@@ -425,12 +458,6 @@ class DrawViewController: UIViewController {
         backButton.topAnchor.constraint(equalTo: topContentView.topAnchor).isActive = true
         backButton.widthAnchor.constraint(equalToConstant: Constants.buttonSize).isActive = true
         backButton.heightAnchor.constraint(equalToConstant: Constants.buttonSize).isActive = true
-        
-        topContentView.addSubview(settingsButton)
-        settingsButton.trailingAnchor.constraint(equalTo: topContentView.trailingAnchor, constant: -15).isActive = true
-        settingsButton.topAnchor.constraint(equalTo: topContentView.topAnchor).isActive = true
-        settingsButton.widthAnchor.constraint(equalToConstant: Constants.buttonSize).isActive = true
-        settingsButton.heightAnchor.constraint(equalToConstant: Constants.buttonSize).isActive = true
         
         topContentView.addSubview(shopTopView)
         shopTopView.centerXAnchor.constraint(equalTo: topContentView.centerXAnchor).isActive = true
@@ -454,13 +481,42 @@ class DrawViewController: UIViewController {
         goToShopButton.trailingAnchor.constraint(equalTo: shopTopView.trailingAnchor, constant: -13).isActive = true
     }
     
+    private func layoutSettingsButtons() {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .equalSpacing
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.alignment = .center
+        stackView.spacing = 5
+        
+        turnOffSoundButton.isHidden = true
+        turnVibroButton.isHidden = true
+        stackView.addArrangedSubview(settingsButton)
+        stackView.addArrangedSubview(turnVibroButton)
+        stackView.backgroundColor = .black
+        stackView.addArrangedSubview(turnOffSoundButton)
+        drawArea.addSubview(stackView)
+        stackView.trailingAnchor.constraint(equalTo: topContentView.trailingAnchor, constant: -15).isActive = true
+        stackView.topAnchor.constraint(equalTo: topContentView.topAnchor).isActive = true
+        
+        turnVibroButton.widthAnchor.constraint(equalToConstant: Constants.buttonSize).isActive = true
+        turnVibroButton.heightAnchor.constraint(equalToConstant: Constants.buttonSize).isActive = true
+        
+        turnOffSoundButton.widthAnchor.constraint(equalToConstant: Constants.buttonSize).isActive = true
+        turnOffSoundButton.heightAnchor.constraint(equalToConstant: Constants.buttonSize).isActive = true
+        
+        settingsButton.widthAnchor.constraint(equalToConstant: Constants.buttonSize).isActive = true
+        settingsButton.heightAnchor.constraint(equalToConstant: Constants.buttonSize).isActive = true
+    }
+    
     private func layoutDrawArea() {
         view.addSubview(drawArea)
         drawArea.topAnchor.constraint(equalTo: topContentView.bottomAnchor, constant: 34).isActive = true
         drawArea.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         drawArea.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        drawArea.bottomAnchor.constraint(equalTo: bottomView.topAnchor).isActive = true
+        drawArea.bottomAnchor.constraint(equalTo: bottomView.topAnchor, constant: -30).isActive = true
     }
+    
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout, UICollectionViewDataSource
@@ -510,5 +566,23 @@ extension DrawViewController: InfoViewControllerDelegate {
             self.vc = nil
             self.visualEffect.removeFromSuperview()
         }
+    }
+}
+
+// тк settingButton находится на MySVGView, но не в координатах superView
+// переопределяю метод point и проверяю входит ли subview в координату тапа
+class MySVGView: SVGView {
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        let inside = super.point(inside: point, with: event)
+        
+        if !inside {
+            for subview in subviews {
+                let pointInSub = subview.convert(point, from: self)
+                if subview.point(inside: pointInSub, with: event) {
+                    return true
+                }
+            }
+        }
+        return inside
     }
 }

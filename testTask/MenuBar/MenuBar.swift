@@ -44,7 +44,7 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDelegateFlowLay
         backgroundColor = .white
         menuCollectionViewLayout()
         //wait until tableViewСells will be ready
-        DispatchQueue.main.asyncAfter(deadline: .now()+1) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.5) { [weak self] in
             self?.menuCollectionView.selectItem(at: IndexPath(item: 0, section: 0),
                                                   animated: false, scrollPosition: .left)
         }

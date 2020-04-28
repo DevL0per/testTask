@@ -13,10 +13,10 @@ class ConvertNumberManager {
     
     func convertNumberOfPaintsToString(number: Int) -> String {
         var stringNumber = String(number)
-        if stringNumber.count == 4 || stringNumber.count == 5 {
+        if stringNumber.count == 4 || stringNumber.count == 5 || stringNumber.count == 6 {
             stringNumber = String(stringNumber.dropLast(3))
             stringNumber+="k"
-        } else if stringNumber.count >= 6 {
+        } else if stringNumber.count >= 7 {
             stringNumber = String(stringNumber.dropLast(5))
             stringNumber+="m"
         }

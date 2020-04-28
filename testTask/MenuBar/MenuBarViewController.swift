@@ -67,7 +67,8 @@ class MenuBarViewController: UIViewController, MenuBarDelegate {
     // MARK: - Elemens Layouts
     private func layoutMenuBar() {
         view.addSubview(menuBar)
-        menuBar.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        let margins = view.layoutMarginsGuide
+        menuBar.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
         menuBar.heightAnchor.constraint(equalToConstant: Constants.menuBarHeightConstant).isActive = true
         menuBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         menuBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true

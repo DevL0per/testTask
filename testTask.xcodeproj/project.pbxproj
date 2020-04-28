@@ -17,7 +17,7 @@
 		F62FED3924557EEA00D4FE74 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62FED3824557EEA00D4FE74 /* InfoViewController.swift */; };
 		F62FED3E2455877E00D4FE74 /* InfoCollectonViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62FED3D2455877E00D4FE74 /* InfoCollectonViewCell.swift */; };
 		F64BFA1824583A9E0052463C /* flowers_withoutNumbers.svg in Resources */ = {isa = PBXBuildFile; fileRef = F64BFA1724583A9D0052463C /* flowers_withoutNumbers.svg */; };
-		F64BFA1A24583AAA0052463C /* birdWithNumbers.svg in Resources */ = {isa = PBXBuildFile; fileRef = F64BFA1924583AAA0052463C /* birdWithNumbers.svg */; };
+		F64BFA1A24583AAA0052463C /* birdWithNumbers1.svg in Resources */ = {isa = PBXBuildFile; fileRef = F64BFA1924583AAA0052463C /* birdWithNumbers1.svg */; };
 		F64BFA1C24583ABA0052463C /* birdWithoutNumbers.svg in Resources */ = {isa = PBXBuildFile; fileRef = F64BFA1B24583ABA0052463C /* birdWithoutNumbers.svg */; };
 		F64BFA1E24583AC80052463C /* flowers_withNumbers.svg in Resources */ = {isa = PBXBuildFile; fileRef = F64BFA1D24583AC80052463C /* flowers_withNumbers.svg */; };
 		F64BFA23245853270052463C /* Extension+UICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64BFA22245853270052463C /* Extension+UICollectionView.swift */; };
@@ -25,6 +25,8 @@
 		F64BFA28245853EF0052463C /* CollectionViewWithShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64BFA27245853EF0052463C /* CollectionViewWithShadow.swift */; };
 		F64BFA2A245854170052463C /* ViewWithShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64BFA29245854170052463C /* ViewWithShadow.swift */; };
 		F64BFA2D245854690052463C /* GoToShopButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64BFA2C245854690052463C /* GoToShopButton.swift */; };
+		F64BFA31245874B50052463C /* birdWithNumbers.svg in Resources */ = {isa = PBXBuildFile; fileRef = F64BFA30245874B50052463C /* birdWithNumbers.svg */; };
+		F64BFA3F245878F00052463C /* firstDrawWithNumbers.svg in Resources */ = {isa = PBXBuildFile; fileRef = F64BFA3E245878F00052463C /* firstDrawWithNumbers.svg */; };
 		F65E5D362450349000654583 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65E5D352450349000654583 /* AppDelegate.swift */; };
 		F65E5D382450349000654583 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65E5D372450349000654583 /* SceneDelegate.swift */; };
 		F65E5D3A2450349000654583 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65E5D392450349000654583 /* ViewController.swift */; };
@@ -46,7 +48,6 @@
 		F6E8AFA7245451590068D3B1 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E8AFA6245451590068D3B1 /* Data.swift */; };
 		F6E8AFAB245454D90068D3B1 /* CatalogCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E8AFAA245454D90068D3B1 /* CatalogCollectionViewCell.swift */; };
 		F6E8AFB1245457E60068D3B1 /* firstDrawNoNumbers.svg in Resources */ = {isa = PBXBuildFile; fileRef = F6E8AFB0245457E60068D3B1 /* firstDrawNoNumbers.svg */; };
-		F6F61F40245469C60004190D /* firstDrawWithNumbers.svg in Resources */ = {isa = PBXBuildFile; fileRef = F6F61F3F245469C60004190D /* firstDrawWithNumbers.svg */; };
 		F6F61F42245484240004190D /* ColorCollectionViewPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F61F41245484240004190D /* ColorCollectionViewPickerCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -63,7 +64,7 @@
 		F62FED3824557EEA00D4FE74 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		F62FED3D2455877E00D4FE74 /* InfoCollectonViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCollectonViewCell.swift; sourceTree = "<group>"; };
 		F64BFA1724583A9D0052463C /* flowers_withoutNumbers.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = flowers_withoutNumbers.svg; sourceTree = "<group>"; };
-		F64BFA1924583AAA0052463C /* birdWithNumbers.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = birdWithNumbers.svg; sourceTree = "<group>"; };
+		F64BFA1924583AAA0052463C /* birdWithNumbers1.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = birdWithNumbers1.svg; sourceTree = "<group>"; };
 		F64BFA1B24583ABA0052463C /* birdWithoutNumbers.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = birdWithoutNumbers.svg; sourceTree = "<group>"; };
 		F64BFA1D24583AC80052463C /* flowers_withNumbers.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = flowers_withNumbers.svg; sourceTree = "<group>"; };
 		F64BFA22245853270052463C /* Extension+UICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UICollectionView.swift"; sourceTree = "<group>"; };
@@ -71,6 +72,8 @@
 		F64BFA27245853EF0052463C /* CollectionViewWithShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewWithShadow.swift; sourceTree = "<group>"; };
 		F64BFA29245854170052463C /* ViewWithShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewWithShadow.swift; sourceTree = "<group>"; };
 		F64BFA2C245854690052463C /* GoToShopButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoToShopButton.swift; sourceTree = "<group>"; };
+		F64BFA30245874B50052463C /* birdWithNumbers.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = birdWithNumbers.svg; sourceTree = "<group>"; };
+		F64BFA3E245878F00052463C /* firstDrawWithNumbers.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = firstDrawWithNumbers.svg; sourceTree = "<group>"; };
 		F65E5D322450349000654583 /* testTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = testTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F65E5D352450349000654583 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F65E5D372450349000654583 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -94,7 +97,6 @@
 		F6E8AFA6245451590068D3B1 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		F6E8AFAA245454D90068D3B1 /* CatalogCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogCollectionViewCell.swift; sourceTree = "<group>"; };
 		F6E8AFB0245457E60068D3B1 /* firstDrawNoNumbers.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = firstDrawNoNumbers.svg; sourceTree = "<group>"; };
-		F6F61F3F245469C60004190D /* firstDrawWithNumbers.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = firstDrawWithNumbers.svg; sourceTree = "<group>"; };
 		F6F61F41245484240004190D /* ColorCollectionViewPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCollectionViewPickerCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -279,8 +281,9 @@
 			children = (
 				F6E8AFA4245451260068D3B1 /* firstDraw.svg */,
 				F6E8AFB0245457E60068D3B1 /* firstDrawNoNumbers.svg */,
-				F6F61F3F245469C60004190D /* firstDrawWithNumbers.svg */,
-				F64BFA1924583AAA0052463C /* birdWithNumbers.svg */,
+				F64BFA3E245878F00052463C /* firstDrawWithNumbers.svg */,
+				F64BFA1924583AAA0052463C /* birdWithNumbers1.svg */,
+				F64BFA30245874B50052463C /* birdWithNumbers.svg */,
 				F64BFA1B24583ABA0052463C /* birdWithoutNumbers.svg */,
 				F64BFA1D24583AC80052463C /* flowers_withNumbers.svg */,
 				F64BFA1724583A9D0052463C /* flowers_withoutNumbers.svg */,
@@ -350,10 +353,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				F6E8AFA5245451260068D3B1 /* firstDraw.svg in Resources */,
-				F64BFA1A24583AAA0052463C /* birdWithNumbers.svg in Resources */,
+				F64BFA1A24583AAA0052463C /* birdWithNumbers1.svg in Resources */,
 				F65E5D422450349200654583 /* LaunchScreen.storyboard in Resources */,
-				F6F61F40245469C60004190D /* firstDrawWithNumbers.svg in Resources */,
 				F65E5D3F2450349200654583 /* Assets.xcassets in Resources */,
+				F64BFA3F245878F00052463C /* firstDrawWithNumbers.svg in Resources */,
+				F64BFA31245874B50052463C /* birdWithNumbers.svg in Resources */,
 				F6E8AFB1245457E60068D3B1 /* firstDrawNoNumbers.svg in Resources */,
 				F64BFA1C24583ABA0052463C /* birdWithoutNumbers.svg in Resources */,
 				F64BFA1E24583AC80052463C /* flowers_withNumbers.svg in Resources */,
@@ -516,7 +520,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -570,7 +574,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -586,6 +590,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = RYT7ZAW62J;
 				INFOPLIST_FILE = testTask/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -595,7 +600,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = roman.testTask;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -605,6 +610,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = RYT7ZAW62J;
 				INFOPLIST_FILE = testTask/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -614,7 +620,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = roman.testTask;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

@@ -70,8 +70,9 @@ class SettingsViewController: UIViewController {
     
     private func layoutTopView() {
         view.addSubview(topView)
+        let margins = view.layoutMarginsGuide
         topView.addSubview(segmentedControll)
-        topView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        topView.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         topView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         topView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         topView.heightAnchor.constraint(equalToConstant: 72).isActive = true
