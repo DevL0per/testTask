@@ -9,104 +9,111 @@
 import UIKit
 import Macaw
 
+fileprivate struct Constants {
+    static let paintCost = 1000
+    static let magicStickCost = 5000
+    static let magicLoupeCost = 3000
+    static let buttonSize: CGFloat = 50
+    static let bottomViewWidth: CGFloat = 128
+    static let contentViewHeight: CGFloat = 50
+    static let shopTopViewWidth: CGFloat = 160
+}
+
 class DrawViewController: UIViewController {
     
-    var currentColor: Color = Color.white
-    var currentColorIndex = 0
     var drawAreaModel: DrawAreaModel!
     var colorizedNodes: [ColorizedNode] = []
-    var vc: InfoViewController?
-    var visualEffect: UIVisualEffectView!
+    var hasUserTappedOnTheBoosters = false
     
+    // current chosen color
+    private var currentColor: Color = Color.white
+    // current chosen colorIndex
+    private var currentColorIndex = 0
+    private var vc: InfoViewController?
+    // blure effect when InfoViewController will be shown
+    private var visualEffect: UIVisualEffectView!
+    
+    // MARK: - Properties
     private let bottomView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
     private let boosterView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
-    private lazy var ananasButton: DrawScreenButton = {
-        let button = DrawScreenButton()
+    private lazy var ananasButton: ButtonWithShadow = {
+        let button = ButtonWithShadow()
         button.setImage(UIImage(named: "086-search"), for: .normal)
+        button.setImage(UIImage(named: "086-searchSelected"), for: .highlighted)
+        button.addTarget(self, action: #selector(ananasButtonWasPressed), for: .touchUpInside)
         return button
     }()
-    
     private let topContentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
-    private let backButton: DrawScreenButton = {
-        let button = DrawScreenButton()
-        button.setImage(UIImage(named: "093-back-2"), for: .normal)
+    private let backButton: ButtonWithShadow = {
+        let button = ButtonWithShadow()
+        button.setImage(UIImage(named: "backButton"), for: .normal)
+        button.setImage(UIImage(named: "backButtonSelected"), for: .highlighted)
         button.addTarget(self, action: #selector(backButtonWasPressed), for: .touchUpInside)
         return button
     }()
-    
     private let shopTopView: ViewWithShadow = {
         let view = ViewWithShadow()
         view.layer.cornerRadius = 25
         return view
     }()
-    
     private let paintCountLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "Arial Rounded MT Bold", size: 14)
-        label.text = "20k"
         label.textColor = #colorLiteral(red: 0.9098039216, green: 0.262745098, blue: 0.5764705882, alpha: 1)
         return label
     }()
-    
-    private let goToShopButton: UIButton = {
-        let button = UIButton()
+    private let goToShopButton: GoToShopButton = {
+        let button = GoToShopButton()
         button.setImage(UIImage(named: "091-plus-1"), for: .normal)
         button.backgroundColor = .clear
         button.layer.cornerRadius = 12
         button.layer.masksToBounds = true
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(showShow), for: .touchUpInside)
+        button.addTarget(self, action: #selector(showShop), for: .touchUpInside)
         return button
     }()
-    
-    private let settingsButton: DrawScreenButton = {
-        let button = DrawScreenButton()
+    private let settingsButton: ButtonWithShadow = {
+        let button = ButtonWithShadow()
         button.setImage(UIImage(named: "100-gear"), for: .normal)
-        //button.addTarget(self, action: #selector(magicStickButtonWasPressed), for: .touchUpInside)
         return button
     }()
-    
-    private lazy var magicStickButton: DrawScreenButton = {
-        let button = DrawScreenButton()
+    private lazy var magicStickButton: ButtonWithShadow = {
+        let button = ButtonWithShadow()
         button.setImage(UIImage(named: "magic stick"), for: .normal)
+        button.setImage(UIImage(named: "magic stickSelected"), for: .highlighted)
         button.addTarget(self, action: #selector(magicStickButtonWasPressed), for: .touchUpInside)
         return button
     }()
-    
     private lazy var magicStickInfoButton: UIButton = {
         let button = UIButton()
-        //button.setImage(UIImage(named: "magic stick"), for: .normal)
         button.backgroundColor = #colorLiteral(red: 0.393315196, green: 0.2743449807, blue: 0.8032925725, alpha: 1)
         button.layer.cornerRadius = 9
         button.layer.masksToBounds = true
+        button.setImage(UIImage(named: "iIcon"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(magicStickInfoButtonWasPressed), for: .touchUpInside)
         return button
     }()
-    
-    private lazy var loupeButton: DrawScreenButton = {
-        let button = DrawScreenButton()
+    private lazy var loupeButton: ButtonWithShadow = {
+        let button = ButtonWithShadow()
         button.setImage(UIImage(named: "magic search"), for: .normal)
+        button.setImage(UIImage(named: "magic searchSelected"), for: .highlighted)
         button.addTarget(self, action: #selector(loupeButtonWasPressed), for: .touchUpInside)
         return button
     }()
-    
     lazy var drawArea: SVGView = {
         let svgView = SVGView()
         svgView.translatesAutoresizingMaskIntoConstraints = false
@@ -115,12 +122,11 @@ class DrawViewController: UIViewController {
         svgView.contentMode = .scaleAspectFit
         return svgView
     }()
-    
-    private lazy var colorCollectionViewPicker: ColorCollectionView = {
+    private lazy var colorCollectionViewPicker: CollectionViewWithShadow = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.sectionInset = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 34)
-        let collectionView = ColorCollectionView(frame: .zero,
+        let collectionView = CollectionViewWithShadow(frame: .zero,
                                               collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .white
@@ -134,45 +140,82 @@ class DrawViewController: UIViewController {
     }()
     
     let semaphore = DispatchSemaphore(value: 1)
-    
-    override func viewDidLoad() {
-        view.backgroundColor = .white
-        drawArea.fileName = drawAreaModel.imagePathWithNumbers
-        setActionsToNodes()
-        layoutBottomView()
-        layoutCollectionView()
-        layoutBoosterView()
-        layoutAnanasButton()
-        layoutLoupeButton()
-        layoutMagicWandButton()
-        layoutMagicStickInfoButton()
-        layoutTopContentView()
-        layoutDrawArea()
-        getAllColorizedTags()
+    private var numberOfPaints: Int! {
+        didSet {
+            paintCountLabel.text = ConvertNumberManager.shared.convertNumberOfPaintsToString(number: numberOfPaints)
+        }
     }
     
-    @objc private func showShow() {
+    // MARK: - Methods
+    override func viewDidLoad() {
+        view.backgroundColor = .white
+        numberOfPaints = 20000
+        drawArea.fileName = drawAreaModel.imagePathWithNumbers
+        setActionsToNodes()
+        layoutElements()
+        checkIfUserTappedOnTheBooster()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        getNumberOfPaints()
+    }
+    
+    
+    //Buttons actions
+    @objc private func showShop() {
         let vc = ShopViewController()
+        vc.drawId = drawAreaModel.id
+        vc.numberOfPaints = numberOfPaints
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
     }
     
     @objc private func magicStickButtonWasPressed() {
-        for valueTag in 1...drawAreaModel.nodes[currentColorIndex] {
-            let tag = "\(currentColorIndex+1)_\(valueTag)"
-            if isColorizedNodesContains(nodeTag: tag) { continue }
-            changeNodeColor(pathTag: tag, withColor: currentColor)
-            let colorizedNode = ColorizedNode(colorTag: currentColorIndex+1, tag: tag)
-            colorizedNodes.append(colorizedNode)
-            saveColorizedNode(node: colorizedNode)
+        if !hasUserTappedOnTheBoosters {
+            magicStickInfoButtonWasPressed()
+            UserDefaultsManager.shared.userTapOnTheBoosterForTheFirstTime()
+            hasUserTappedOnTheBoosters = true
+        } else {
+            // find all nodes with certain tag and colorize it
+            if numberOfPaints >= Constants.magicStickCost {
+                for valueTag in 1...drawAreaModel.nodes[currentColorIndex] {
+                    let tag = "\(currentColorIndex+1)_\(valueTag)"
+                    if isColorizedNodesContains(nodeTag: tag) { continue }
+                    changeNodeColor(pathTag: tag, withColor: currentColor)
+                    let colorizedNode = ColorizedNode(colorTag: currentColorIndex, tag: tag)
+                    colorizedNodes.append(colorizedNode)
+                    let cell = colorCollectionViewPicker.cellForItem(at:
+                        IndexPath(item: currentColorIndex, section: 0)) as! ColorCollectionViewPickerCell
+                    cell.nodeWasColorized()
+                }
+                numberOfPaints-=Constants.magicStickCost
+                saveColorizedNode()
+            }
+        }
+    }
+    
+    @objc private func ananasButtonWasPressed() {
+        if !hasUserTappedOnTheBoosters {
+            magicStickInfoButtonWasPressed()
+            UserDefaultsManager.shared.userTapOnTheBoosterForTheFirstTime()
+            hasUserTappedOnTheBoosters = true
         }
     }
     
     @objc private func loupeButtonWasPressed() {
-        for valueTag in 1...drawAreaModel.nodes[currentColorIndex] {
-            let tag = "\(currentColorIndex+1)_\(valueTag)"
-            if isColorizedNodesContains(nodeTag: tag) { continue }
-            changeNodeColor(pathTag: tag, withColor: Color.rgba(r: 174, g: 174, b: 174, a: 0.5))
+        if !hasUserTappedOnTheBoosters {
+            magicStickInfoButtonWasPressed()
+            UserDefaultsManager.shared.userTapOnTheBoosterForTheFirstTime()
+            hasUserTappedOnTheBoosters = true
+        } else {
+            if numberOfPaints >= Constants.magicLoupeCost {
+                for valueTag in 1...drawAreaModel.nodes[currentColorIndex] {
+                    let tag = "\(currentColorIndex+1)_\(valueTag)"
+                    if isColorizedNodesContains(nodeTag: tag) { continue }
+                    changeNodeColor(pathTag: tag, withColor: Color.rgba(r: 174, g: 174, b: 174, a: 0.5))
+                }
+                numberOfPaints-=Constants.magicLoupeCost
+            }
         }
     }
     
@@ -181,7 +224,7 @@ class DrawViewController: UIViewController {
     }
     
     @objc private func magicStickInfoButtonWasPressed() {
-        
+        // add blure on viewController
         let blure = UIBlurEffect(style: .dark)
         visualEffect = UIVisualEffectView(effect: blure)
         visualEffect.alpha = 0
@@ -202,12 +245,30 @@ class DrawViewController: UIViewController {
         }
     }
     
+    private func layoutElements() {
+        layoutBottomView()
+        layoutCollectionView()
+        layoutBoosterView()
+        layoutAnanasButton()
+        layoutLoupeButton()
+        layoutMagicWandButton()
+        layoutMagicStickInfoButton()
+        layoutTopContentView()
+        layoutDrawArea()
+    }
+    
+    private func checkIfUserTappedOnTheBooster() {
+        guard let result = UserDefaultsManager.shared.hasUserTappedOnTheBoosters() else { return }
+        hasUserTappedOnTheBoosters = result
+    }
+    
+    // get user's progress in certain painting
     private func getAllColorizedTags() {
         let dispatchWorkItem = DispatchWorkItem(qos: .userInteractive) { [unowned self] in
             guard let nodes = UserDefaultsManager.shared.getProgress(drawId: self.drawAreaModel.id) else { return }
             self.colorizedNodes = nodes
         }
-        DispatchQueue.global(qos: .userInteractive).async(execute: dispatchWorkItem)
+        DispatchQueue.global(qos: .utility).async(execute: dispatchWorkItem)
         dispatchWorkItem.notify(queue: .main) { [unowned self] in
             if !self.colorizedNodes.isEmpty {
                 self.colorizeAllSavedAreas()
@@ -215,23 +276,40 @@ class DrawViewController: UIViewController {
         }
     }
     
+    // get user's number of paints in certain painting
+    private func getNumberOfPaints() {
+        let dispatchWorkItem = DispatchWorkItem(qos: .userInteractive) { [unowned self] in
+            guard let numberOfPaints =
+                UserDefaultsManager.shared.getNumberOfPaints(drawId: self.drawAreaModel.id) else { return }
+            DispatchQueue.main.async { [unowned self] in
+                self.numberOfPaints = numberOfPaints
+            }
+        }
+        DispatchQueue.global(qos: .utility).async(execute: dispatchWorkItem)
+    }
+    
+    // colorize all nodes that user colorized before
     private func colorizeAllSavedAreas() {
         for node in colorizedNodes {
             let color = drawAreaModel.correctColors[node.colorTag]
             changeNodeColor(pathTag: node.tag, withColor: color)
+            let cell = colorCollectionViewPicker.cellForItem(at:
+                IndexPath(item: node.colorTag, section: 0)) as! ColorCollectionViewPickerCell
+            cell.nodeWasColorized()
         }
     }
     
-    private func saveColorizedNode(node: ColorizedNode) {
-        DispatchQueue.global(qos: .background).async { [unowned self] in
+    // save all current colorized nodes
+    private func saveColorizedNode() {
+        DispatchQueue.global(qos: .utility).async { [unowned self] in
             self.semaphore.wait()
-            UserDefaultsManager.shared.saveProgress(drawId: self.drawAreaModel.id, colorizedTags: self.colorizedNodes)
+            UserDefaultsManager.shared.saveProgress(drawId: self.drawAreaModel.id, colorizedTags: self.colorizedNodes, numberOfPaints: self.numberOfPaints)
             self.semaphore.signal()
         }
     }
     
+    // set actions to all nodes
     private func setActionsToNodes() {
-        
         for pathTag in 1...drawAreaModel.nodes.count {
             for valueTag in 1...drawAreaModel.nodes[pathTag-1] {
                 let tag = "\(pathTag)_\(valueTag)"
@@ -243,18 +321,26 @@ class DrawViewController: UIViewController {
         }
     }
     
+    // fill certain node with color
     private func changeNodeColor(pathTag: String, withColor color: Color) {
         guard let nodeShape = drawArea.node.nodeBy(tag: pathTag) as? Shape else { return }
         nodeShape.fill = color
     }
     
+    // node action (user has tapped to certain node)
     private func changeNodeColor(pathTag: Int, fullNodeTag: String) {
-        if drawAreaModel.correctColors[pathTag] == currentColor && !isColorizedNodesContains(nodeTag: fullNodeTag) {
-            let nodeShape = drawArea.node.nodeBy(tag: fullNodeTag) as! Shape
-            nodeShape.fill = currentColor
+        // if collor is correct and node is't colorized fill it
+        if drawAreaModel.correctColors[pathTag] == currentColor
+            && !isColorizedNodesContains(nodeTag: fullNodeTag) && numberOfPaints >= Constants.paintCost {
+            changeNodeColor(pathTag: fullNodeTag, withColor: currentColor)
             let colorizedNode = ColorizedNode(colorTag: pathTag, tag: fullNodeTag)
             colorizedNodes.append(colorizedNode)
-            saveColorizedNode(node: colorizedNode)
+            saveColorizedNode()
+            // tell UICollectionViewCell that node was colorized
+            let cell = colorCollectionViewPicker.cellForItem(at:
+                IndexPath(item: currentColorIndex, section: 0)) as! ColorCollectionViewPickerCell
+            cell.nodeWasColorized()
+            numberOfPaints-=Constants.paintCost
         }
     }
     
@@ -269,6 +355,7 @@ class DrawViewController: UIViewController {
         return flag
     }
     
+    // MARK: - Elements layout
     private func layoutMagicStickInfoButton() {
         magicStickButton.addSubview(magicStickInfoButton)
         magicStickInfoButton.centerXAnchor.constraint(equalTo: magicStickButton.centerXAnchor, constant: 16).isActive = true
@@ -281,24 +368,24 @@ class DrawViewController: UIViewController {
         boosterView.addSubview(ananasButton)
         ananasButton.leadingAnchor.constraint(equalTo: boosterView.leadingAnchor).isActive = true
         ananasButton.topAnchor.constraint(equalTo: boosterView.topAnchor).isActive = true
-        ananasButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        ananasButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        ananasButton.widthAnchor.constraint(equalToConstant: Constants.buttonSize).isActive = true
+        ananasButton.heightAnchor.constraint(equalToConstant: Constants.buttonSize).isActive = true
     }
     
     private func layoutLoupeButton() {
         boosterView.addSubview(loupeButton)
         loupeButton.trailingAnchor.constraint(equalTo: boosterView.trailingAnchor).isActive = true
         loupeButton.topAnchor.constraint(equalTo: boosterView.topAnchor).isActive = true
-        loupeButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        loupeButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        loupeButton.widthAnchor.constraint(equalToConstant: Constants.buttonSize).isActive = true
+        loupeButton.heightAnchor.constraint(equalToConstant: Constants.buttonSize).isActive = true
     }
     
     private func layoutMagicWandButton() {
         boosterView.addSubview(magicStickButton)
         magicStickButton.trailingAnchor.constraint(equalTo: loupeButton.leadingAnchor, constant: -15).isActive = true
         magicStickButton.topAnchor.constraint(equalTo: boosterView.topAnchor).isActive = true
-        magicStickButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        magicStickButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        magicStickButton.widthAnchor.constraint(equalToConstant: Constants.buttonSize).isActive = true
+        magicStickButton.heightAnchor.constraint(equalToConstant: Constants.buttonSize).isActive = true
     }
     
     private func layoutCollectionView() {
@@ -315,14 +402,14 @@ class DrawViewController: UIViewController {
         bottomView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15).isActive = true
         bottomView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        bottomView.heightAnchor.constraint(equalToConstant: 127).isActive = true
+        bottomView.heightAnchor.constraint(equalToConstant: Constants.bottomViewWidth).isActive = true
     }
     
     private func layoutBoosterView() {
         bottomView.addSubview(boosterView)
         boosterView.bottomAnchor.constraint(equalTo: colorCollectionViewPicker.topAnchor, constant: -15).isActive = true
         boosterView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -14).isActive = true
-        boosterView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        boosterView.heightAnchor.constraint(equalToConstant: Constants.contentViewHeight).isActive = true
         boosterView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 14).isActive = true
     }
     
@@ -331,23 +418,23 @@ class DrawViewController: UIViewController {
         topContentView.topAnchor.constraint(equalTo: view.topAnchor, constant: 25).isActive = true
         topContentView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         topContentView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        topContentView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        topContentView.heightAnchor.constraint(equalToConstant: Constants.contentViewHeight).isActive = true
         
         topContentView.addSubview(backButton)
         backButton.leadingAnchor.constraint(equalTo: topContentView.leadingAnchor, constant: 15).isActive = true
         backButton.topAnchor.constraint(equalTo: topContentView.topAnchor).isActive = true
-        backButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        backButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        backButton.widthAnchor.constraint(equalToConstant: Constants.buttonSize).isActive = true
+        backButton.heightAnchor.constraint(equalToConstant: Constants.buttonSize).isActive = true
         
         topContentView.addSubview(settingsButton)
         settingsButton.trailingAnchor.constraint(equalTo: topContentView.trailingAnchor, constant: -15).isActive = true
         settingsButton.topAnchor.constraint(equalTo: topContentView.topAnchor).isActive = true
-        settingsButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        settingsButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        settingsButton.widthAnchor.constraint(equalToConstant: Constants.buttonSize).isActive = true
+        settingsButton.heightAnchor.constraint(equalToConstant: Constants.buttonSize).isActive = true
         
         topContentView.addSubview(shopTopView)
         shopTopView.centerXAnchor.constraint(equalTo: topContentView.centerXAnchor).isActive = true
-        shopTopView.widthAnchor.constraint(equalToConstant: 160).isActive = true
+        shopTopView.widthAnchor.constraint(equalToConstant: Constants.shopTopViewWidth).isActive = true
         shopTopView.topAnchor.constraint(equalTo: topContentView.topAnchor).isActive = true
         
         let paintImageView = UIImageView(image: UIImage(named: "paint24"))
@@ -365,7 +452,6 @@ class DrawViewController: UIViewController {
         shopTopView.addSubview(goToShopButton)
         goToShopButton.centerYAnchor.constraint(equalTo: shopTopView.centerYAnchor).isActive = true
         goToShopButton.trailingAnchor.constraint(equalTo: shopTopView.trailingAnchor, constant: -13).isActive = true
-        
     }
     
     private func layoutDrawArea() {
@@ -377,6 +463,7 @@ class DrawViewController: UIViewController {
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout, UICollectionViewDataSource
 extension DrawViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -391,7 +478,9 @@ extension DrawViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ColorCell",
                                                       for: indexPath) as! ColorCollectionViewPickerCell
         let color = drawAreaModel.correctColors[indexPath.row]
-        cell.setImageColor(color: color, number: indexPath.row+1)
+        let numberOfNodes = drawAreaModel.nodes[indexPath.row]
+        cell.setImageColor(color: color, number: indexPath.row+1, numberOfNodes: numberOfNodes)
+        if (indexPath.row == drawAreaModel.correctColors.count-1) { getAllColorizedTags() }
         return cell
     }
     
@@ -406,55 +495,8 @@ extension DrawViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
     
 }
 
-class ColorCollectionView: UICollectionView {
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        layer.shadowColor = UIColor.gray.cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 5.0)
-        layer.shadowRadius = 10
-        layer.shadowOpacity = 0.2
-        layer.masksToBounds = false
-        layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.layer.cornerRadius).cgPath
-        
-    }
-}
-
-
-extension UICollectionView {
-    func roundCorners(corners: UIRectCorner, radius: CGFloat) {
-        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-        let mask = CAShapeLayer()
-        mask.path = path.cgPath
-        layer.mask = mask
-    }
-}
-
-class DrawScreenButton: UIButton {
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        backgroundColor = .white
-        layer.cornerRadius = 25
-        translatesAutoresizingMaskIntoConstraints = false
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        layer.shadowColor = UIColor.gray.cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 5.0)
-        layer.shadowRadius = 10
-        layer.shadowOpacity = 0.2
-        layer.masksToBounds = false
-        layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.layer.cornerRadius).cgPath
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-
+// MARK: - InfoViewControllerDelegate
+// remove blure effect and infoVC
 extension DrawViewController: InfoViewControllerDelegate {
     func closeInfoScreen() {
         guard let vc = vc else { return }
@@ -466,31 +508,7 @@ extension DrawViewController: InfoViewControllerDelegate {
             vc.view.removeFromSuperview()
             vc.removeFromParent()
             self.vc = nil
-            
             self.visualEffect.removeFromSuperview()
         }
-    }
-}
-
-class ViewWithShadow: UIView {
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        backgroundColor = .white
-        translatesAutoresizingMaskIntoConstraints = false
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        layer.shadowColor = UIColor.gray.cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 5.0)
-        layer.shadowRadius = 10
-        layer.shadowOpacity = 0.2
-        layer.masksToBounds = false
-        layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.layer.cornerRadius).cgPath
     }
 }

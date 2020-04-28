@@ -8,13 +8,22 @@
 
 import UIKit
 
+fileprivate struct Constants {
+    static let collectionViewCellSize: CGFloat = 128
+    static let collectionViewSpacing: CGFloat = 15
+    static let topViewHeight: CGFloat = 72
+    static let titleImageViewSize: CGFloat = 16
+}
+
 protocol CatalogTableViewCellDelegate {
-    func showDrawScreen(at index: Int)
+    func showDrawScreen(at index: Int, section: Int)
 }
 
 class CatalogTableViewCell: UITableViewCell {
     
-    // CollectionView
+    var draws: [DrawAreaModel]!
+    var numberOfSection: Int!
+    
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -23,6 +32,7 @@ class CatalogTableViewCell: UITableViewCell {
                                               collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.isUserInteractionEnabled = true
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.delegate = self
         collectionView.backgroundColor = .white
         collectionView.dataSource = self
@@ -68,6 +78,7 @@ class CatalogTableViewCell: UITableViewCell {
         titleImageView.image = titleImage
     }
     
+    // MARK: - Elemens Layouts
     private func titleLayout() {
         let titleView = UIView()
         addSubview(titleView)
@@ -84,8 +95,8 @@ class CatalogTableViewCell: UITableViewCell {
         
         titleImageView.leadingAnchor.constraint(equalTo: titleView.leadingAnchor).isActive = true
         titleImageView.topAnchor.constraint(equalTo: titleView.topAnchor).isActive = true
-        titleImageView.widthAnchor.constraint(equalToConstant: 16).isActive = true
-        titleImageView.heightAnchor.constraint(equalToConstant: 16).isActive = true
+        titleImageView.widthAnchor.constraint(equalToConstant: Constants.titleImageViewSize).isActive = true
+        titleImageView.heightAnchor.constraint(equalToConstant: Constants.titleImageViewSize).isActive = true
         
         titleText.leadingAnchor.constraint(equalTo: titleImageView.trailingAnchor, constant: 9).isActive = true
         titleText.centerYAnchor.constraint(equalTo: titleImageView.centerYAnchor).isActive = true
@@ -99,32 +110,36 @@ class CatalogTableViewCell: UITableViewCell {
         collectionView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         collectionView.topAnchor.constraint(equalTo: titleImageView.bottomAnchor, constant: 15).isActive = true
-        collectionView.heightAnchor.constraint(equalToConstant: 128).isActive = true
+        collectionView.heightAnchor.constraint(equalToConstant: Constants.collectionViewCellSize).isActive = true
     }
 }
 
+
+// MARK: - UITableView(Delegate, DataSource)
 extension CatalogTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 128, height: 128)
+        return CGSize(width: Constants.collectionViewCellSize,
+                      height: Constants.collectionViewCellSize)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 15
+        return Constants.collectionViewSpacing
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data.count
+        return draws.count
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate.showDrawScreen(at: indexPath.row)
+        delegate.showDrawScreen(at: indexPath.row, section: numberOfSection)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let collectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CatalogCollectionViewCell",
                                                                     for: indexPath) as! CatalogCollectionViewCell
-        let path = data[indexPath.row].imagePathWithoutNumbers
+        let draw = draws[indexPath.row]
+        let path = draw.imagePathWithoutNumbers
         collectionViewCell.setupImage(withPath: path)
         return collectionViewCell
     }

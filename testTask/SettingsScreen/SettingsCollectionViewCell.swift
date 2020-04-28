@@ -27,6 +27,7 @@ class SettingsCollectionViewCell: UICollectionViewCell  {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        layer.cornerRadius = 10
         iconImageViewLayout()
         titleLabelLayout()
         backgroundColor = .white

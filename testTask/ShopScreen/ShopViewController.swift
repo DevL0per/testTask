@@ -10,6 +10,32 @@ import UIKit
 
 class ShopViewController: UIViewController {
     
+    let bonusSectionItems: [ShopModel] = [
+        ShopModel(subtitle: "watch free video", buttonTitle: "Watch",
+                  buttonImage: UIImage(named: "Polygon"), numbetOfPaints: 20),
+        ShopModel(subtitle: "+ exclusive images", buttonTitle: "Join",
+                  buttonImage: UIImage(named: "facebook (1)"), numbetOfPaints: 7000)
+    ]
+    let donateSectionItems: [ShopModel] = [
+        ShopModel(subtitle: "", buttonTitle: "$1.19",
+                  buttonImage: nil, numbetOfPaints: 1000),
+        ShopModel(subtitle: "+ 2000 free bonus", buttonTitle: "$3.49",
+                  buttonImage: nil, numbetOfPaints: 5000),
+        ShopModel(subtitle: "+ 5000 free bonus", buttonTitle: "$5.99",
+                  buttonImage: nil, numbetOfPaints: 10000),
+        ShopModel(subtitle: "+ 5000 free bonus", buttonTitle: "$23.99",
+                  buttonImage: nil, numbetOfPaints: 50000),
+        ShopModel(subtitle: "+ 100 000 free bonus", buttonTitle: "$49.99",
+                  buttonImage: nil, numbetOfPaints: 150000),
+    ]
+    
+    var numberOfPaints: Int! {
+        didSet {
+            contentViewRightLabel.text = ConvertNumberManager.shared.convertNumberOfPaintsToString(number: numberOfPaints)
+        }
+    }
+    var drawId: Int!
+    
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -17,6 +43,7 @@ class ShopViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero,
                                               collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.isUserInteractionEnabled = true
         collectionView.delegate = self
         collectionView.backgroundColor = .white
         collectionView.dataSource = self
@@ -31,12 +58,31 @@ class ShopViewController: UIViewController {
         let view = ViewWithShadow()
         view.frame = self.collectionView.bounds
         view.layer.cornerRadius = 10
+        view.isUserInteractionEnabled = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private let backButton: DrawScreenButton = {
-        let button = DrawScreenButton()
+    private let magicStickCost: UILabel = {
+        let label = UILabel()
+        label.text = "5000"
+        label.textAlignment = .center
+        label.font = UIFont(name: "Arial Rounded MT Bold", size: 12)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let magicLoupeCost: UILabel = {
+        let label = UILabel()
+        label.text = "3000"
+        label.textAlignment = .center
+        label.font = UIFont(name: "Arial Rounded MT Bold", size: 12)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let backButton: ButtonWithShadow = {
+        let button = ButtonWithShadow()
         button.layer.cornerRadius = 25
         button.setImage(UIImage(named: "092-cancel-2"), for: .normal)
         button.addTarget(self, action: #selector(backButtonWasPressed), for: .touchUpInside)
@@ -47,7 +93,6 @@ class ShopViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "Arial Rounded MT Bold", size: 14)
-        label.text = "20k"
         label.textColor = #colorLiteral(red: 0.9098039216, green: 0.262745098, blue: 0.5764705882, alpha: 1)
         return label
     }()
@@ -60,6 +105,8 @@ class ShopViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    private let semathor = DispatchSemaphore(value: 1)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -121,6 +168,44 @@ class ShopViewController: UIViewController {
         contentView.addSubview(contentViewRightLabel)
         contentViewRightLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -19).isActive = true
         contentViewRightLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        
+        let infoContentView = UIImageView(image: UIImage(named: "Group 13.1"))
+        infoContentView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .equalSpacing
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.alignment = .center
+        stackView.spacing = 30
+        
+        let magicStickViewStackView = UIStackView()
+        magicStickViewStackView.axis = .horizontal
+        magicStickViewStackView.distribution = .equalSpacing
+        magicStickViewStackView.alignment = .center
+        magicStickViewStackView.spacing = 5
+        
+        magicStickViewStackView.addArrangedSubview(UIImageView(image: UIImage(named: "Group 21")))
+        magicStickViewStackView.addArrangedSubview(magicStickCost)
+        magicStickViewStackView.addArrangedSubview(UIImageView(image: UIImage(named: "083-paint-1x8")))
+        
+        let magicLoupeViewStackView = UIStackView()
+        magicLoupeViewStackView.axis = .horizontal
+        magicLoupeViewStackView.distribution = .equalSpacing
+        magicLoupeViewStackView.alignment = .center
+        magicLoupeViewStackView.spacing = 5
+        
+        magicLoupeViewStackView.addArrangedSubview(UIImageView(image: UIImage(named: "Group 22")))
+        magicLoupeViewStackView.addArrangedSubview(magicLoupeCost)
+        magicLoupeViewStackView.addArrangedSubview(UIImageView(image: UIImage(named: "083-paint-1x8")))
+        
+        stackView.addArrangedSubview(magicStickViewStackView)
+        stackView.addArrangedSubview(magicLoupeViewStackView)
+        collectionView.addSubview(stackView)
+        stackView.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 15).isActive = true
+        stackView.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor).isActive = true
+        //infoContentView.widthAnchor.constraint(equalToConstant: 131).isActive = true
+        //infoContentView.heightAnchor.constraint(equalToConstant: 16).isActive = true
     }
 }
 
@@ -128,9 +213,9 @@ extension ShopViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0 {
-            return 2
+            return bonusSectionItems.count
         } else {
-            return 5
+            return donateSectionItems.count
         }
     }
     
@@ -144,6 +229,19 @@ extension ShopViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ShopCell", for: indexPath) as! ShopCollectionViewCell
+        if indexPath.section == 0 {
+            let item = bonusSectionItems[indexPath.row]
+            cell.setupElementsInBonusSection(buttonImage: item.buttonImage!,
+                                             buttonText: item.buttonTitle,
+                                             numberOfPaints: item.numbetOfPaints,
+                                             subtitle: item.subtitle)
+        } else {
+            let item = donateSectionItems[indexPath.row]
+            cell.setupElementsInDonateSection(cost: item.buttonTitle,
+                                              numberOfPaints: item.numbetOfPaints,
+                                              subtitle: item.subtitle)
+        }
+        cell.delegate = self
         return cell
     }
 
@@ -157,36 +255,19 @@ extension ShopViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
     
 }
 
-//class ShopCollectionView: UICollectionView {
-//
-//    private var shadowLayer: CAShapeLayer!
-//
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//
-//        if shadowLayer == nil {
-//            shadowLayer = CAShapeLayer()
-//            shadowLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: 12).cgPath
-//            shadowLayer.fillColor = UIColor.white.cgColor
-//
-//            shadowLayer.shadowColor = UIColor.darkGray.cgColor
-//            shadowLayer.shadowPath = shadowLayer.path
-//            shadowLayer.shadowOffset = CGSize(width: 0, height: 5.0)
-//            shadowLayer.shadowOpacity = 0.2
-//            shadowLayer.shadowRadius = 10
-//
-//            layer.masksToBounds = false
-//            layer.insertSublayer(shadowLayer, below: nil)
-//        }
-//    }
-//}
-//    
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        layer.shadowColor = UIColor.gray.cgColor
-//        layer.shadowOffset = CGSize(width: 0, height: 5.0)
-//        layer.shadowRadius = 10
-//        layer.shadowOpacity = 0.2
-//        layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.layer.cornerRadius).cgPath
-//    }
-//
+extension ShopViewController: ShopCollectionViewCellDelegate {
+    
+    func userPressedTheButton(numberOfPaintsToAdd: Int) {
+        
+        let workItem = DispatchWorkItem { [unowned self] in
+            self.semathor.wait()
+            UserDefaultsManager.shared.saveNumberOfPaints(drawId: self.drawId,
+                                                          numberOfPaints: self.numberOfPaints+numberOfPaintsToAdd)
+            self.semathor.signal()
+        }
+        workItem.notify(queue: .main) { [unowned self] in
+            self.numberOfPaints+=numberOfPaintsToAdd
+        }
+        DispatchQueue.global(qos: .background).async(execute: workItem)
+    }
+}

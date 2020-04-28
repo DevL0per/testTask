@@ -17,9 +17,13 @@ class CatalogCollectionViewCell: UICollectionViewCell {
         return image
     }()
     
+    private let shadowView = ViewWithShadow()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
+        addSubview(shadowView)
+        shadowView.frame = self.bounds
         addSubview(image)
     }
     

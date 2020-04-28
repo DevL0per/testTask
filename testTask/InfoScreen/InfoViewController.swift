@@ -17,10 +17,10 @@ class InfoViewController: UIViewController {
     fileprivate let items: [InfoScreenModel] = [
         InfoScreenModel(image: UIImage(named: "witch96")!,
                         title: "Magic Wand Tool",
-                        subtitle: "Color any shape in your\n field of view", drawCost: 1),
+                        subtitle: "Color any shape in your\n field of view", drawCost: 5000),
         InfoScreenModel(image: UIImage(named: "smile96")!,
                         title: "Magic Search Tool",
-                        subtitle: "Find lost shapes for\n choosen color", drawCost: 20),
+                        subtitle: "Find lost shapes for\n choosen color", drawCost: 3000),
         InfoScreenModel(image: UIImage(named: "search96")!,
                         title: "Zoom Tooll",
                         subtitle: "Discover more details with\n smart zoom", drawCost: 0)
@@ -54,7 +54,6 @@ class InfoViewController: UIViewController {
         return view
     }()
     
-    // CollectionView
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -104,6 +103,7 @@ class InfoViewController: UIViewController {
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout, UICollectionViewDataSource
 extension InfoViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

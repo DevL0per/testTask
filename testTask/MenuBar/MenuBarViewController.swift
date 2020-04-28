@@ -14,10 +14,9 @@ private struct Constants {
 
 class MenuBarViewController: UIViewController, MenuBarDelegate {
     
-    var selectedIndex: Int = 0
-    var previousIndex: Int = 0
-    
-    var viewControllers = [UIViewController]()
+    private var selectedIndex: Int = 0
+    private var previousIndex: Int = 0
+    private var viewControllers = [UIViewController]()
     
     private let menuBar: MenuBar = {
         let menuBar = MenuBar()
@@ -26,7 +25,7 @@ class MenuBarViewController: UIViewController, MenuBarDelegate {
     }()
     
     static let firstVC = ViewController()
-    static let secondVC = DrawViewController()
+    static let secondVC = SettingsViewController()
     static let thirdVC = SettingsViewController()
     static let fourthVC = SettingsViewController()
     
@@ -41,16 +40,12 @@ class MenuBarViewController: UIViewController, MenuBarDelegate {
         menuBarWasSelected(at: 0)
     }
     
-    private func layoutMenuBar() {
-        view.addSubview(menuBar)
-        menuBar.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        menuBar.heightAnchor.constraint(equalToConstant: Constants.menuBarHeightConstant).isActive = true
-        menuBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        menuBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
     }
     
-   
     func menuBarWasSelected(at index: Int) {
+        if index != 0 && index != 3 { return }
         previousIndex = selectedIndex
         selectedIndex = index
         
@@ -67,5 +62,14 @@ class MenuBarViewController: UIViewController, MenuBarDelegate {
         self.view.addSubview(vc.view)
         
         self.view.bringSubviewToFront(menuBar)
+    }
+    
+    // MARK: - Elemens Layouts
+    private func layoutMenuBar() {
+        view.addSubview(menuBar)
+        menuBar.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        menuBar.heightAnchor.constraint(equalToConstant: Constants.menuBarHeightConstant).isActive = true
+        menuBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        menuBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     }
 }

@@ -30,22 +30,49 @@ class ColorCollectionViewPickerCell: UICollectionViewCell {
         label.font = UIFont(name: "Arial Rounded MT Bold", size: 10)
         return label
     }()
+    let shapeLayer = CAShapeLayer()
+    var numberOfNodes: Int!
+    var numberOfColorizedNodes: Int = 0
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .clear
         layoutColorImage()
+        setShapeLayer()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setImageColor(color: Color, number: Int) {
+    func setImageColor(color: Color, number: Int, numberOfNodes: Int) {
         numberLabel.text = String(number)
         colorImage.backgroundColor = UIColor(cgColor: color.toCG())
+        self.numberOfNodes = numberOfNodes
     }
     
+    func nodeWasColorized() {
+        numberOfColorizedNodes+=1
+        shapeLayer.strokeEnd = CGFloat(numberOfColorizedNodes)/CGFloat(numberOfNodes)
+    }
+    
+    private func setShapeLayer() {
+        layer.addSublayer(shapeLayer)
+        
+        shapeLayer.frame = bounds
+        let path = UIBezierPath(arcCenter: CGPoint(x: bounds.origin.x+12, y: bounds.origin.y+12),
+                                radius: bounds.height/2,
+                                startAngle: 3*CGFloat.pi/2,
+                                endAngle: (CGFloat.pi*3.60),
+                                clockwise: true)
+        shapeLayer.path = path.cgPath
+        shapeLayer.fillColor = .none
+        shapeLayer.strokeColor = UIColor.black.cgColor
+        shapeLayer.lineWidth = 3
+        shapeLayer.strokeEnd = 0
+    }
+ 
+    // MARK: - elements layouts
     private func layoutColorImage() {
         addSubview(colorImage)
         colorImage.heightAnchor.constraint(equalToConstant: Constants.colorImageSize).isActive = true

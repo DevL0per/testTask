@@ -8,6 +8,11 @@
 
 import UIKit
 
+fileprivate struct Constants {
+    static let collectionViewBottomInset: CGFloat = 70
+    static let leftAndRightInset: CGFloat = 30
+}
+
 class SettingsViewController: UIViewController {
     
     fileprivate let items: [SettingsItem] = [
@@ -27,10 +32,13 @@ class SettingsViewController: UIViewController {
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 70, right: 0)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: Constants.collectionViewBottomInset, right: 0)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.delegate = self
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 30)
+        collectionView.contentInset = UIEdgeInsets(top: 0,
+                                                   left: Constants.leftAndRightInset,
+                                                   bottom: 0,
+                                                   right: Constants.leftAndRightInset)
         collectionView.backgroundColor = .white
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.dataSource = self
@@ -98,8 +106,8 @@ class SettingsViewController: UIViewController {
 
 }
 
-extension SettingsViewController: UICollectionViewDelegateFlowLayout,
-UICollectionViewDelegate, UICollectionViewDataSource {
+// MARK: - UICollectionViewDelegateFlowLayout, UICollectionViewDataSource
+extension SettingsViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         items.count

@@ -18,17 +18,17 @@ class MenuBarCollectionViewCell: UICollectionViewCell {
     }()
     private var imageName: String = ""
     
-//    override var isHighlighted: Bool {
-//        didSet {
-//            //let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
-//        }
-//    }
-//    
-//    override var isSelected: Bool {
-//        didSet {
-//            
-//        }
-//    }
+    override var isHighlighted: Bool {
+        didSet {
+            iconImageView.image = isHighlighted ? UIImage(named: imageName) : UIImage(named: imageName+"NotSelected")
+        }
+    }
+    
+    override var isSelected: Bool {
+        didSet {
+            iconImageView.image = isSelected ? UIImage(named: imageName) : UIImage(named: imageName+"NotSelected")
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -39,7 +39,8 @@ class MenuBarCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupIconImageView(with image: UIImage) {
-        iconImageView.image = image
+    func setupIconImageView(with imageName: String) {
+        iconImageView.image = UIImage(named: imageName+"NotSelected")
+        self.imageName = imageName
     }
 }

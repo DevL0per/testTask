@@ -24,8 +24,17 @@ class UserDefaultsManager {
     
     private let defaults = UserDefaults.standard
     
-    func saveProgress(drawId: Int, colorizedTags: [ColorizedNode]) {
+    func saveProgress(drawId: Int, colorizedTags: [ColorizedNode], numberOfPaints: Int) {
         defaults.set(try? PropertyListEncoder().encode(colorizedTags), forKey: String(drawId))
+        defaults.set(numberOfPaints, forKey: "numberOfPaints\(drawId)")
+    }
+    
+    func saveNumberOfPaints(drawId: Int, numberOfPaints: Int) {
+        defaults.set(numberOfPaints, forKey: "numberOfPaints\(drawId)")
+    }
+    
+    func getNumberOfPaints(drawId: Int) -> Int? {
+        return defaults.value(forKey: "numberOfPaints\(drawId)") as? Int
     }
     
     func getProgress(drawId: Int) -> [ColorizedNode]? {
@@ -35,5 +44,13 @@ class UserDefaultsManager {
         } else {
             return nil
         }
+    }
+    
+    func hasUserTappedOnTheBoosters() -> Bool? {
+        return defaults.value(forKey: "hasUserTappedOnTheBoosters") as? Bool
+    }
+    
+    func userTapOnTheBoosterForTheFirstTime() {
+        defaults.set(true, forKey: "hasUserTappedOnTheBoosters")
     }
 }

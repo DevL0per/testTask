@@ -16,3 +16,9 @@ struct DrawAreaModel {
     var nodes: [Int] = []
     var correctColors: [Color] = []
 }
+
+struct DrawSection {
+    var icon: UIImage
+    var nameOfSection: String
+    var draws: [DrawAreaModel]
+}

@@ -8,10 +8,15 @@
 
 import UIKit
 
+fileprivate struct Constants {
+    static let iconImageViewSize: CGFloat = 96
+    static let bottomImageViewSize: CGFloat = 24
+    static let fullContentStackViewSpacing: CGFloat = 53
+}
 
 class InfoCollectonViewCell: UICollectionViewCell {
     
-    private let imageView: UIImageView = {
+    private let iconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -65,7 +70,7 @@ class InfoCollectonViewCell: UICollectionViewCell {
     }
     
     func setupElements(item: InfoScreenModel) {
-        imageView.image = item.image
+        iconImageView.image = item.image
         titleLabel.text = item.title
         middleLabel.text = item.subtitle
         if item.drawCost > 0 {
@@ -75,16 +80,18 @@ class InfoCollectonViewCell: UICollectionViewCell {
         }
     }
     
+    // MARK: - Layout elements
     private func layoutElements() {
         
         //imageViewLayout
-        imageView.widthAnchor.constraint(equalToConstant: 96).isActive = true
-        imageView.heightAnchor.constraint(equalToConstant: 96).isActive = true
+        iconImageView.widthAnchor.constraint(equalToConstant: Constants.iconImageViewSize).isActive = true
+        iconImageView.heightAnchor.constraint(equalToConstant: Constants.iconImageViewSize).isActive = true
         
         //bottomImageViewLayout
-        bottomImageView.widthAnchor.constraint(equalToConstant: 24).isActive = true
-        bottomImageView.heightAnchor.constraint(equalToConstant: 24).isActive = true
+        bottomImageView.widthAnchor.constraint(equalToConstant: Constants.bottomImageViewSize).isActive = true
+        bottomImageView.heightAnchor.constraint(equalToConstant: Constants.bottomImageViewSize).isActive = true
         
+        // stackView for text content
         let textContentStackView = UIStackView()
         textContentStackView.axis = .vertical
         textContentStackView.distribution = .equalSpacing
@@ -101,13 +108,14 @@ class InfoCollectonViewCell: UICollectionViewCell {
         textContentStackView.addArrangedSubview(middleLabel)
         textContentStackView.addArrangedSubview(bottomStackView)
         
+        // textView for all elements
         let fullContentStackView = UIStackView()
         fullContentStackView.axis = .vertical
         fullContentStackView.distribution = .equalSpacing
         fullContentStackView.alignment = .center
-        fullContentStackView.spacing = 53
+        fullContentStackView.spacing = Constants.fullContentStackViewSpacing
         
-        fullContentStackView.addArrangedSubview(imageView)
+        fullContentStackView.addArrangedSubview(iconImageView)
         fullContentStackView.addArrangedSubview(textContentStackView)
         fullContentStackView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(fullContentStackView)

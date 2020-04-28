@@ -10,6 +10,9 @@ import UIKit
 
 private struct Constants {
     static let menuCollectionViewHeight: CGFloat = 50
+    static let collectionViewinsets: CGFloat = 13
+    static let collectionViewSizeCellSize: CGFloat = 28
+    static let numberOfItemsInSection = 4
 }
 
 protocol MenuBarDelegate {
@@ -18,12 +21,16 @@ protocol MenuBarDelegate {
 
 class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource  {
     
-    lazy var menuCollectionView: UICollectionView = {
+    private lazy var menuCollectionView: CollectionViewWithShadow = {
         let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 13, left: 13, bottom: 13, right: 13)
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        layout.sectionInset = UIEdgeInsets(top: Constants.collectionViewinsets,
+                                           left: Constants.collectionViewinsets,
+                                           bottom: Constants.collectionViewinsets,
+                                           right: Constants.collectionViewinsets)
+        let collectionView = CollectionViewWithShadow(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.layer.masksToBounds = true
+        collectionView.isScrollEnabled = false
         collectionView.backgroundColor = .white
         collectionView.layer.cornerRadius = Constants.menuCollectionViewHeight/2
         collectionView.delegate = self
@@ -34,14 +41,20 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDelegateFlowLay
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = #colorLiteral(red: 0.9346082807, green: 0.9346082807, blue: 0.9346082807, alpha: 1)
+        backgroundColor = .white
         menuCollectionViewLayout()
+        //wait until tableViewСells will be ready
+        DispatchQueue.main.asyncAfter(deadline: .now()+1) { [weak self] in
+            self?.menuCollectionView.selectItem(at: IndexPath(item: 0, section: 0),
+                                                  animated: false, scrollPosition: .left)
+        }
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Elemens Layouts
     private func menuCollectionViewLayout() {
         addSubview(menuCollectionView)
         menuCollectionView.topAnchor.constraint(equalTo: topAnchor, constant: 15).isActive = true
@@ -52,10 +65,11 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDelegateFlowLay
     
     var delegate: MenuBarDelegate!
     
-    //MARK: - collectionViewDataSource, collectionViewDelegate
+    //MARK: - CollectionViewDataSource, CollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 28, height: 28)
+        return CGSize(width: Constants.collectionViewSizeCellSize,
+                      height: Constants.collectionViewSizeCellSize)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -67,14 +81,14 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDelegateFlowLay
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return Constants.numberOfItemsInSection
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "menuCell",
                                                       for: indexPath) as! MenuBarCollectionViewCell
         let imageName = "menuItem" + String(indexPath.row)
-        cell.setupIconImageView(with: UIImage(named: imageName)!)
+        cell.setupIconImageView(with: imageName)
         return cell
     }
 }
