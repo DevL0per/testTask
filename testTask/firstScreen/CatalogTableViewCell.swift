@@ -103,7 +103,7 @@ class CatalogTableViewCell: UITableViewCell {
         titleText.centerYAnchor.constraint(equalTo: titleImageView.centerYAnchor).isActive = true
         
         moreButton.trailingAnchor.constraint(equalTo: titleView.trailingAnchor).isActive = true
-        moreButton.topAnchor.constraint(equalTo: titleView.topAnchor).isActive = true
+        moreButton.centerYAnchor.constraint(equalTo: titleImageView.centerYAnchor).isActive = true
     }
     
     private func collectionViewLayout() {
