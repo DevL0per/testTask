@@ -56,7 +56,9 @@ class InfoCollectonViewCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .clear
-        imageView.image = UIImage(named: "paint24")
+        let image = SVGIconsManager.shared.returnImage(forResourceName: "083-paint-1",
+                                                       size: CGSize(width: 24, height: 24))
+        imageView.image = image
         return imageView
     }()
     
@@ -70,7 +72,9 @@ class InfoCollectonViewCell: UICollectionViewCell {
     }
     
     func setupElements(item: InfoScreenModel) {
-        iconImageView.image = item.image
+        let image = SVGIconsManager.shared.returnImage(forResourceName: item.image,
+                                                       size: CGSize(width: 128, height: 120))
+        iconImageView.image = image
         titleLabel.text = item.title
         middleLabel.text = item.subtitle
         if item.drawCost > 0 {

@@ -235,6 +235,7 @@ class DrawViewController: UIViewController {
     @objc private func magicStickButtonWasPressed() {
         if currentColor != Color.white {
             if !hasUserTappedOnTheBoosters {
+                magicStickInfoButtonWasPressed()
                 UserDefaultsManager.shared.userTapOnTheBoosterForTheFirstTime()
                 hasUserTappedOnTheBoosters = true
             } else {
@@ -259,6 +260,7 @@ class DrawViewController: UIViewController {
     
     @objc private func ananasButtonWasPressed() {
         if !hasUserTappedOnTheBoosters {
+            magicStickInfoButtonWasPressed()
             UserDefaultsManager.shared.userTapOnTheBoosterForTheFirstTime()
             hasUserTappedOnTheBoosters = true
         }

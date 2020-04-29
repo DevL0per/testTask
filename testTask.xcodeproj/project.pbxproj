@@ -83,6 +83,9 @@
 		F6DEEB7C245A212E00823B94 /* facebook (1).svg in Resources */ = {isa = PBXBuildFile; fileRef = F6DEEB7B245A212E00823B94 /* facebook (1).svg */; };
 		F6DEEB7E245A23D900823B94 /* 083-paint-plus.svg in Resources */ = {isa = PBXBuildFile; fileRef = F6DEEB7D245A23D900823B94 /* 083-paint-plus.svg */; };
 		F6DEEB80245A245900823B94 /* 014-cancel.svg in Resources */ = {isa = PBXBuildFile; fileRef = F6DEEB7F245A245900823B94 /* 014-cancel.svg */; };
+		F6DEEB83245A27C600823B94 /* Group 27.svg in Resources */ = {isa = PBXBuildFile; fileRef = F6DEEB81245A27C600823B94 /* Group 27.svg */; };
+		F6DEEB84245A27C600823B94 /* Group 28.svg in Resources */ = {isa = PBXBuildFile; fileRef = F6DEEB82245A27C600823B94 /* Group 28.svg */; };
+		F6DEEB88245A294F00823B94 /* startup1.svg in Resources */ = {isa = PBXBuildFile; fileRef = F6DEEB87245A294F00823B94 /* startup1.svg */; };
 		F6E8AFA2245450900068D3B1 /* DrawAreaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E8AFA1245450900068D3B1 /* DrawAreaModel.swift */; };
 		F6E8AFA5245451260068D3B1 /* firstDraw.svg in Resources */ = {isa = PBXBuildFile; fileRef = F6E8AFA4245451260068D3B1 /* firstDraw.svg */; };
 		F6E8AFA7245451590068D3B1 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E8AFA6245451590068D3B1 /* Data.swift */; };
@@ -175,6 +178,9 @@
 		F6DEEB7B245A212E00823B94 /* facebook (1).svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "facebook (1).svg"; sourceTree = "<group>"; };
 		F6DEEB7D245A23D900823B94 /* 083-paint-plus.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "083-paint-plus.svg"; sourceTree = "<group>"; };
 		F6DEEB7F245A245900823B94 /* 014-cancel.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "014-cancel.svg"; sourceTree = "<group>"; };
+		F6DEEB81245A27C600823B94 /* Group 27.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Group 27.svg"; sourceTree = "<group>"; };
+		F6DEEB82245A27C600823B94 /* Group 28.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Group 28.svg"; sourceTree = "<group>"; };
+		F6DEEB87245A294F00823B94 /* startup1.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = startup1.svg; sourceTree = "<group>"; };
 		F6E8AFA1245450900068D3B1 /* DrawAreaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawAreaModel.swift; sourceTree = "<group>"; };
 		F6E8AFA4245451260068D3B1 /* firstDraw.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = firstDraw.svg; sourceTree = "<group>"; };
 		F6E8AFA6245451590068D3B1 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
@@ -386,12 +392,15 @@
 				F6DEEB7B245A212E00823B94 /* facebook (1).svg */,
 				F6DEEB79245A212800823B94 /* Polygon.svg */,
 				F6DEEB60245A18C200823B94 /* 006-support.svg */,
+				F6DEEB87245A294F00823B94 /* startup1.svg */,
 				F6DEEB5D245A18C100823B94 /* 007-law.svg */,
 				F6DEEB5E245A18C100823B94 /* 009-rate-review.svg */,
 				F6DEEB61245A18C200823B94 /* 010-tell-a-friend.svg */,
 				F6DEEB5F245A18C100823B94 /* 011-restore.svg */,
 				F6DEEB62245A18C200823B94 /* 097-padlock.svg */,
 				F6DEEB30245A138400823B94 /* menuItem1Selected.svg */,
+				F6DEEB81245A27C600823B94 /* Group 27.svg */,
+				F6DEEB82245A27C600823B94 /* Group 28.svg */,
 				F6DEEB33245A138500823B94 /* menuItem2Selected.svg */,
 				F6DEEB7D245A23D900823B94 /* 083-paint-plus.svg */,
 				F6DEEB77245A20BD00823B94 /* magic fill.svg */,
@@ -507,9 +516,11 @@
 				F65E5D422450349200654583 /* LaunchScreen.storyboard in Resources */,
 				F6DEEB3E245A138800823B94 /* 102-telephone-call-1.svg in Resources */,
 				F6DEEB66245A18C200823B94 /* 006-support.svg in Resources */,
+				F6DEEB84245A27C600823B94 /* Group 28.svg in Resources */,
 				F6DEEB49245A138800823B94 /* menuItem1Selected.svg in Resources */,
 				F6DEEB7A245A212800823B94 /* Polygon.svg in Resources */,
 				F6DEEB45245A138800823B94 /* 013-more.svg in Resources */,
+				F6DEEB88245A294F00823B94 /* startup1.svg in Resources */,
 				F6DEEB47245A138800823B94 /* menuItem2.svg in Resources */,
 				F6F8414E2459FA6C00E884BB /* menuItem0.svg in Resources */,
 				F6DEEB4A245A138800823B94 /* 086-search-1.svg in Resources */,
@@ -539,6 +550,7 @@
 				F6DEEB52245A138800823B94 /* 005-settings.svg in Resources */,
 				F6DEEB46245A138800823B94 /* 103-speaker-1.svg in Resources */,
 				F6DEEB74245A202800823B94 /* Group 23.svg in Resources */,
+				F6DEEB83245A27C600823B94 /* Group 27.svg in Resources */,
 				F64BFA1824583A9E0052463C /* flowers_withoutNumbers.svg in Resources */,
 				F6DEEB43245A138800823B94 /* 073-bird-2.svg in Resources */,
 				F6DEEB6C245A1E3500823B94 /* 021-magic-wand.svg in Resources */,

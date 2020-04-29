@@ -6,10 +6,10 @@
 //  Copyright © 2020 Роман Важник. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 struct InfoScreenModel {
-    let image: UIImage
+    let image: String
     let title: String
     let subtitle: String
     let drawCost: Int

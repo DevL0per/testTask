@@ -15,13 +15,13 @@ protocol InfoViewControllerDelegate {
 class InfoViewController: UIViewController {
     
     fileprivate let items: [InfoScreenModel] = [
-        InfoScreenModel(image: UIImage(named: "witch96")!,
+        InfoScreenModel(image: "Group 27",
                         title: "Magic Wand Tool",
                         subtitle: "Color any shape in your\n field of view", drawCost: 5000),
-        InfoScreenModel(image: UIImage(named: "smile96")!,
+        InfoScreenModel(image: "Group 28",
                         title: "Magic Search Tool",
                         subtitle: "Find lost shapes for\n choosen color", drawCost: 3000),
-        InfoScreenModel(image: UIImage(named: "search96")!,
+        InfoScreenModel(image: "086-search-1",
                         title: "Zoom Tooll",
                         subtitle: "Discover more details with\n smart zoom", drawCost: 0)
     ]

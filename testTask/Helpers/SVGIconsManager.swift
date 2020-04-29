@@ -21,14 +21,9 @@ class SVGIconsManager {
         return image
     }
 
-    func setImage(forResourceName: String, size: CGSize, inObject obj: UIImageView) {
-        DispatchQueue.global(qos: .background).async {
-            let url = Bundle.main.url(forResource: forResourceName , withExtension: "svg")!
-            let frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-            let svgLayer = SVGLayer(contentsOf: url)
-            svgLayer.frame = frame
-            
-            let image = self.snapshotImage(for: svgLayer)
+    func setImage(forResourceName name: String, size: CGSize, inObject obj: UIImageView) {
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            let image = self?.returnImage(forResourceName: name, size: size)
             DispatchQueue.main.async {
                 obj.image = image
             }
