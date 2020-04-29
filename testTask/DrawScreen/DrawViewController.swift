@@ -201,50 +201,51 @@ class DrawViewController: UIViewController {
     }
     
     @objc private func magicStickButtonWasPressed() {
-        if !hasUserTappedOnTheBoosters {
-            magicStickInfoButtonWasPressed()
-            UserDefaultsManager.shared.userTapOnTheBoosterForTheFirstTime()
-            hasUserTappedOnTheBoosters = true
-        } else {
-            // find all nodes with certain tag and colorize it
-            if numberOfPaints >= Constants.magicStickCost {
-                for valueTag in 1...drawAreaModel.nodes[currentColorIndex] {
-                    let tag = "\(currentColorIndex+1)_\(valueTag)"
-                    if isColorizedNodesContains(nodeTag: tag) { continue }
-                    changeNodeColor(pathTag: tag, withColor: currentColor)
-                    let colorizedNode = ColorizedNode(colorTag: currentColorIndex, tag: tag)
-                    colorizedNodes.append(colorizedNode)
-                    let cell = colorCollectionViewPicker.cellForItem(at:
-                        IndexPath(item: currentColorIndex, section: 0)) as! ColorCollectionViewPickerCell
-                    cell.nodeWasColorized()
+        if currentColor != Color.white {
+            if !hasUserTappedOnTheBoosters {
+                UserDefaultsManager.shared.userTapOnTheBoosterForTheFirstTime()
+                hasUserTappedOnTheBoosters = true
+            } else {
+                // find all nodes with certain tag and colorize it
+                if numberOfPaints >= Constants.magicStickCost {
+                    for valueTag in 1...drawAreaModel.nodes[currentColorIndex] {
+                        let tag = "\(currentColorIndex+1)_\(valueTag)"
+                        if isColorizedNodesContains(nodeTag: tag) { continue }
+                        changeNodeColor(pathTag: tag, withColor: currentColor)
+                        let colorizedNode = ColorizedNode(colorTag: currentColorIndex, tag: tag)
+                        colorizedNodes.append(colorizedNode)
+                        let cell = colorCollectionViewPicker.cellForItem(at:
+                            IndexPath(item: currentColorIndex, section: 0)) as! ColorCollectionViewPickerCell
+                        cell.nodeWasColorized()
+                    }
+                    numberOfPaints-=Constants.magicStickCost
+                    saveColorizedNode()
                 }
-                numberOfPaints-=Constants.magicStickCost
-                saveColorizedNode()
             }
         }
     }
     
     @objc private func ananasButtonWasPressed() {
         if !hasUserTappedOnTheBoosters {
-            magicStickInfoButtonWasPressed()
             UserDefaultsManager.shared.userTapOnTheBoosterForTheFirstTime()
             hasUserTappedOnTheBoosters = true
         }
     }
     
     @objc private func loupeButtonWasPressed() {
-        if !hasUserTappedOnTheBoosters {
-            magicStickInfoButtonWasPressed()
-            UserDefaultsManager.shared.userTapOnTheBoosterForTheFirstTime()
-            hasUserTappedOnTheBoosters = true
-        } else {
-            if numberOfPaints >= Constants.magicLoupeCost {
-                for valueTag in 1...drawAreaModel.nodes[currentColorIndex] {
-                    let tag = "\(currentColorIndex+1)_\(valueTag)"
-                    if isColorizedNodesContains(nodeTag: tag) { continue }
-                    changeNodeColor(pathTag: tag, withColor: Color.rgba(r: 174, g: 174, b: 174, a: 0.5))
+        if currentColor != Color.white {
+            if !hasUserTappedOnTheBoosters {
+                UserDefaultsManager.shared.userTapOnTheBoosterForTheFirstTime()
+                hasUserTappedOnTheBoosters = true
+            } else {
+                if numberOfPaints >= Constants.magicLoupeCost {
+                    for valueTag in 1...drawAreaModel.nodes[currentColorIndex] {
+                        let tag = "\(currentColorIndex+1)_\(valueTag)"
+                        if isColorizedNodesContains(nodeTag: tag) { continue }
+                        changeNodeColor(pathTag: tag, withColor: Color.rgba(r: 174, g: 174, b: 174, a: 0.5))
+                    }
+                    numberOfPaints-=Constants.magicLoupeCost
                 }
-                numberOfPaints-=Constants.magicLoupeCost
             }
         }
     }
