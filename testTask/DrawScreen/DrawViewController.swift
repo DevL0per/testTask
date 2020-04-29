@@ -241,9 +241,11 @@ class DrawViewController: UIViewController {
             } else {
                 // find all nodes with certain tag and colorize it
                 if numberOfPaints >= Constants.magicStickCost {
+                    var isAllNodesColorized = true
                     for valueTag in 1...drawAreaModel.nodes[currentColorIndex] {
                         let tag = "\(currentColorIndex+1)_\(valueTag)"
                         if isColorizedNodesContains(nodeTag: tag) { continue }
+                        isAllNodesColorized = false
                         changeNodeColor(pathTag: tag, withColor: currentColor)
                         let colorizedNode = ColorizedNode(colorTag: currentColorIndex, tag: tag)
                         colorizedNodes.append(colorizedNode)
@@ -251,8 +253,10 @@ class DrawViewController: UIViewController {
                             IndexPath(item: currentColorIndex, section: 0)) as! ColorCollectionViewPickerCell
                         cell.nodeWasColorized()
                     }
-                    numberOfPaints-=Constants.magicStickCost
-                    saveColorizedNode()
+                    if !isAllNodesColorized {
+                        numberOfPaints-=Constants.magicStickCost
+                        saveColorizedNode()
+                    }
                 }
             }
         }
@@ -266,20 +270,29 @@ class DrawViewController: UIViewController {
         }
     }
     
+    private var previousColorizedColorIndexByLoupe: Int?
     @objc private func loupeButtonWasPressed() {
         if currentColor != Color.white {
             if !hasUserTappedOnTheBoosters {
                 UserDefaultsManager.shared.userTapOnTheBoosterForTheFirstTime()
                 hasUserTappedOnTheBoosters = true
             } else {
+                if let colorizedColorIndex = previousColorizedColorIndexByLoupe {
+                    if colorizedColorIndex == currentColorIndex {
+                        return
+                    }
+                }
+                previousColorizedColorIndexByLoupe = currentColorIndex
+                var isAllNodesColorized = true
                 if numberOfPaints >= Constants.magicLoupeCost {
                     for valueTag in 1...drawAreaModel.nodes[currentColorIndex] {
                         let tag = "\(currentColorIndex+1)_\(valueTag)"
                         if isColorizedNodesContains(nodeTag: tag) { continue }
+                        isAllNodesColorized = false
                         changeNodeColor(pathTag: tag, withColor: Color.rgba(r: 174, g: 174, b: 174, a: 0.5))
                     }
-                    numberOfPaints-=Constants.magicLoupeCost
                 }
+                if !isAllNodesColorized { numberOfPaints-=Constants.magicLoupeCost }
             }
         }
     }
