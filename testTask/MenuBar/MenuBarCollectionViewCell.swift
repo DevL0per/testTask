@@ -16,17 +16,22 @@ class MenuBarCollectionViewCell: UICollectionViewCell {
         imageView.contentMode = .center
         return imageView
     }()
+    static let size = CGSize(width: 24, height: 24)
     private var imageName: String = ""
     
     override var isHighlighted: Bool {
         didSet {
-            iconImageView.image = isHighlighted ? UIImage(named: imageName) : UIImage(named: imageName+"NotSelected")
+            let iconName = isHighlighted ? imageName+"Selected" : imageName
+            SVGIconsManager.shared.setImage(forResourceName: iconName,
+                                            size: MenuBarCollectionViewCell.size, inObject: iconImageView)
         }
     }
     
     override var isSelected: Bool {
         didSet {
-            iconImageView.image = isSelected ? UIImage(named: imageName) : UIImage(named: imageName+"NotSelected")
+            let iconName = isSelected ? imageName+"Selected" : imageName
+            SVGIconsManager.shared.setImage(forResourceName: iconName,
+                                            size: MenuBarCollectionViewCell.size, inObject: iconImageView)
         }
     }
     
@@ -40,7 +45,9 @@ class MenuBarCollectionViewCell: UICollectionViewCell {
     }
     
     func setupIconImageView(with imageName: String) {
-        iconImageView.image = UIImage(named: imageName+"NotSelected")
+        SVGIconsManager.shared.setImage(forResourceName: imageName,
+                                        size: MenuBarCollectionViewCell.size,
+                                        inObject: iconImageView)
         self.imageName = imageName
     }
 }

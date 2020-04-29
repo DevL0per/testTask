@@ -6,11 +6,11 @@
 //  Copyright © 2020 Роман Важник. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 struct ShopModel {
     let subtitle: String
     let buttonTitle: String
-    var buttonImage: UIImage?
+    var buttonImage: String?
     let numbetOfPaints: Int
 }

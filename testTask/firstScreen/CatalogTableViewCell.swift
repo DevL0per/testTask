@@ -57,7 +57,8 @@ class CatalogTableViewCell: UITableViewCell {
     }()
     private let moreButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "013-more"), for: .normal)
+        let image = SVGIconsManager.shared.returnImage(forResourceName: "013-more", size: CGSize(width: 16, height: 14))
+        button.setImage(image, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()

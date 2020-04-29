@@ -37,9 +37,10 @@ class SettingsCollectionViewCell: UICollectionViewCell  {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupElements(text: String, image: UIImage) {
+    func setupElements(text: String, image: String) {
         titleLabel.text = text
-        iconImageView.image = image
+        SVGIconsManager.shared.setImage(forResourceName: image, size: CGSize(width: 30,
+                                                                             height: 30), inObject: iconImageView)
     }
     
     private func iconImageViewLayout() {

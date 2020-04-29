@@ -84,8 +84,11 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource, CatalogTab
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "catalogCell", for: indexPath) as! CatalogTableViewCell
         let drawsSection = drawsSections[indexPath.row]
+        
+        let image = SVGIconsManager.shared.returnImage(forResourceName: drawsSection.icon,
+                                                       size: CGSize(width: 16, height: 16))
         cell.setupElements(textForTitle: drawsSection.nameOfSection,
-                           titleImage: drawsSection.icon)
+                           titleImage: image)
         cell.delegate = self
         cell.draws = drawsSection.draws
         cell.numberOfSection = indexPath.row

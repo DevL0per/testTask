@@ -64,14 +64,16 @@ class ShopCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupElementsInBonusSection(buttonImage: UIImage,
+    func setupElementsInBonusSection(buttonImage: String,
                                              buttonText: String,
                                              numberOfPaints: Int, subtitle: String) {
         
         rightButton.isHidden = false
         rightCostButton.isHidden = true
         subtitleLabel.textColor = .black
-        rightButton.setImage(buttonImage, for: .normal)
+        let image = SVGIconsManager.shared.returnImage(forResourceName: buttonImage,
+                                                       size: CGSize(width: 9, height: 9))
+        rightButton.setImage(image, for: .normal)
         rightButton.setTitle(buttonText, for: .normal)
         self.numberOfPaints.text = String(numberOfPaints)
         self.subtitleLabel.text = subtitle
@@ -92,9 +94,6 @@ class ShopCollectionViewCell: UICollectionViewCell {
             delegate.userPressedTheButton(numberOfPaintsToAdd: numberOfPaints)
         }
     }
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-    }
     
     private func layoutElements() {
         let viewWithShadow = ViewWithShadow()
@@ -106,7 +105,9 @@ class ShopCollectionViewCell: UICollectionViewCell {
         viewWithShadow.topAnchor.constraint(equalTo: topAnchor).isActive = true
         viewWithShadow.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         
-        let drawImageView = UIImageView(image: UIImage(named: "paint24"))
+        let drawImage = SVGIconsManager.shared.returnImage(forResourceName: "083-paint-plus",
+                                                           size: CGSize(width: 24, height: 24))
+        let drawImageView = UIImageView(image: drawImage)
         drawImageView.translatesAutoresizingMaskIntoConstraints = false
         viewWithShadow.addSubview(drawImageView)
         drawImageView.leadingAnchor.constraint(equalTo: viewWithShadow.leadingAnchor, constant: 15).isActive = true

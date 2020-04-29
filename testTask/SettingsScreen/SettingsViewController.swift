@@ -16,12 +16,12 @@ fileprivate struct Constants {
 class SettingsViewController: UIViewController {
     
     fileprivate let items: [SettingsItem] = [
-        SettingsItem(text: "Restore\n Purchases", image: UIImage(named: "011-restore")!),
-        SettingsItem(text: "Tell a friend", image: UIImage(named: "010-tell-a-friend")!),
-        SettingsItem(text: "Rate &\n Review", image: UIImage(named: "009-rate-review")!),
-        SettingsItem(text: "Privacy\n Policy", image: UIImage(named: "097-padlock")!),
-        SettingsItem(text: "Terms\n of Use", image: UIImage(named: "007-law")!),
-        SettingsItem(text: "Support &\n Feedback", image: UIImage(named: "006-support")!)
+        SettingsItem(text: "Restore\n Purchases", image: "011-restore"),
+        SettingsItem(text: "Tell a friend", image: "010-tell-a-friend"),
+        SettingsItem(text: "Rate &\n Review", image: "009-rate-review"),
+        SettingsItem(text: "Privacy\n Policy", image: "097-padlock"),
+        SettingsItem(text: "Terms\n of Use", image: "007-law"),
+        SettingsItem(text: "Support &\n Feedback", image: "006-support")
     ]
 
     private let topView: UIView = {

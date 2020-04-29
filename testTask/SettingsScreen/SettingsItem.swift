@@ -6,9 +6,9 @@
 //  Copyright © 2020 Роман Важник. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 struct SettingsItem {
     let text: String
-    let image: UIImage
+    let image: String
 }

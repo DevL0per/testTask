@@ -6,5 +6,6 @@ target 'testTask' do
   use_frameworks!
 
   pod "Macaw", "0.9.6"
+  pod 'PocketSVG', '~> 2.0'
 
 end

@@ -12,9 +12,9 @@ class ShopViewController: UIViewController {
     
     let bonusSectionItems: [ShopModel] = [
         ShopModel(subtitle: "watch free video", buttonTitle: "Watch",
-                  buttonImage: UIImage(named: "Polygon"), numbetOfPaints: 20),
+                  buttonImage: "Polygon", numbetOfPaints: 20),
         ShopModel(subtitle: "+ exclusive images", buttonTitle: "Join",
-                  buttonImage: UIImage(named: "facebook (1)"), numbetOfPaints: 7000)
+                  buttonImage: "facebook (1)", numbetOfPaints: 7000)
     ]
     let donateSectionItems: [ShopModel] = [
         ShopModel(subtitle: "", buttonTitle: "$1.19",
@@ -84,8 +84,12 @@ class ShopViewController: UIViewController {
     private let backButton: ButtonWithShadow = {
         let button = ButtonWithShadow()
         button.layer.cornerRadius = 25
-        button.setImage(UIImage(named: "cancelButton"), for: .normal)
-        button.setImage(UIImage(named: "cancelButtonSelected"), for: .highlighted)
+        let imageOne = SVGIconsManager.shared.returnImage(forResourceName: "092-cancel-2",
+                                                          size: CGSize(width: 24, height: 24))
+        let imageTwo = SVGIconsManager.shared.returnImage(forResourceName: "014-cancel",
+                                                          size: CGSize(width: 24, height: 24))
+        button.setImage(imageOne, for: .normal)
+        button.setImage(imageTwo, for: .highlighted)
         button.addTarget(self, action: #selector(backButtonWasPressed), for: .touchUpInside)
         return button
     }()
@@ -158,7 +162,9 @@ class ShopViewController: UIViewController {
         contentView.widthAnchor.constraint(equalToConstant: 113).isActive = true
         contentView.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
-        let colorImageView = UIImageView(image: UIImage(named: "paint24"))
+        let image = SVGIconsManager.shared.returnImage(forResourceName: "083-paint-1",
+                                                       size: CGSize(width: 24, height: 24))
+        let colorImageView = UIImageView(image: image)
         colorImageView.translatesAutoresizingMaskIntoConstraints = false
         
         contentView.addSubview(colorImageView)
@@ -170,9 +176,6 @@ class ShopViewController: UIViewController {
         contentView.addSubview(contentViewRightLabel)
         contentViewRightLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -19).isActive = true
         contentViewRightLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        
-        let infoContentView = UIImageView(image: UIImage(named: "Group 13.1"))
-        infoContentView.translatesAutoresizingMaskIntoConstraints = false
         
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -187,9 +190,14 @@ class ShopViewController: UIViewController {
         magicStickViewStackView.alignment = .center
         magicStickViewStackView.spacing = 5
         
-        magicStickViewStackView.addArrangedSubview(UIImageView(image: UIImage(named: "Group 21")))
+        let groupOneimage = SVGIconsManager.shared.returnImage(forResourceName: "Group 21",
+                                                       size: CGSize(width: 24, height: 16))
+        magicStickViewStackView.addArrangedSubview(UIImageView(image: groupOneimage))
         magicStickViewStackView.addArrangedSubview(magicStickCost)
-        magicStickViewStackView.addArrangedSubview(UIImageView(image: UIImage(named: "083-paint-1x8")))
+        
+        let paintImage = SVGIconsManager.shared.returnImage(forResourceName: "083-paint-1",
+                                                               size: CGSize(width: 8, height: 8))
+        magicStickViewStackView.addArrangedSubview(UIImageView(image: paintImage))
         
         let magicLoupeViewStackView = UIStackView()
         magicLoupeViewStackView.axis = .horizontal
@@ -197,9 +205,11 @@ class ShopViewController: UIViewController {
         magicLoupeViewStackView.alignment = .center
         magicLoupeViewStackView.spacing = 5
         
-        magicLoupeViewStackView.addArrangedSubview(UIImageView(image: UIImage(named: "Group 22")))
+        let groupTwoimage = SVGIconsManager.shared.returnImage(forResourceName: "Group 22",
+                                                              size: CGSize(width: 24, height: 16))
+        magicLoupeViewStackView.addArrangedSubview(UIImageView(image: groupTwoimage))
         magicLoupeViewStackView.addArrangedSubview(magicLoupeCost)
-        magicLoupeViewStackView.addArrangedSubview(UIImageView(image: UIImage(named: "083-paint-1x8")))
+        magicLoupeViewStackView.addArrangedSubview(UIImageView(image: paintImage))
         
         stackView.addArrangedSubview(magicStickViewStackView)
         stackView.addArrangedSubview(magicLoupeViewStackView)

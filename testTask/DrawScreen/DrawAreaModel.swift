@@ -18,7 +18,7 @@ struct DrawAreaModel {
 }
 
 struct DrawSection {
-    var icon: UIImage
+    var icon: String
     var nameOfSection: String
     var draws: [DrawAreaModel]
 }

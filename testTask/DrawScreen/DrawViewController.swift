@@ -8,6 +8,7 @@
 
 import UIKit
 import Macaw
+import PocketSVG
 
 fileprivate struct Constants {
     static let paintCost = 1000
@@ -17,6 +18,7 @@ fileprivate struct Constants {
     static let bottomViewHeight: CGFloat = 128
     static let contentViewHeight: CGFloat = 50
     static let shopTopViewWidth: CGFloat = 160
+    static let buttonIconSize = CGSize(width: 24, height: 24)
 }
 
 class DrawViewController: UIViewController {
@@ -46,8 +48,13 @@ class DrawViewController: UIViewController {
     }()
     private lazy var ananasButton: ButtonWithShadow = {
         let button = ButtonWithShadow()
-        button.setImage(UIImage(named: "086-search"), for: .normal)
-        button.setImage(UIImage(named: "086-searchSelected"), for: .highlighted)
+        let imageOne = SVGIconsManager.shared.returnImage(forResourceName: "086-search-1",
+                                                          size: Constants.buttonIconSize)
+        let imageTwo = SVGIconsManager.shared.returnImage(forResourceName: "020-zoom",
+                                                          size: Constants.buttonIconSize)
+        
+        button.setImage(imageOne, for: .normal)
+        button.setImage(imageTwo, for: .highlighted)
         button.addTarget(self, action: #selector(ananasButtonWasPressed), for: .touchUpInside)
         return button
     }()
@@ -59,8 +66,13 @@ class DrawViewController: UIViewController {
     }()
     private let backButton: ButtonWithShadow = {
         let button = ButtonWithShadow()
-        button.setImage(UIImage(named: "backButton"), for: .normal)
-        button.setImage(UIImage(named: "backButtonSelected"), for: .highlighted)
+        let imageOne = SVGIconsManager.shared.returnImage(forResourceName: "093-back-2",
+                                                          size: Constants.buttonIconSize)
+        let imageTwo = SVGIconsManager.shared.returnImage(forResourceName: "012-back",
+                                                          size: Constants.buttonIconSize)
+        button.setImage(imageOne, for: .normal)
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 5, right: 0)
+        button.setImage(imageTwo, for: .highlighted)
         button.addTarget(self, action: #selector(backButtonWasPressed), for: .touchUpInside)
         return button
     }()
@@ -78,7 +90,9 @@ class DrawViewController: UIViewController {
     }()
     private let goToShopButton: GoToShopButton = {
         let button = GoToShopButton()
-        button.setImage(UIImage(named: "091-plus-1"), for: .normal)
+        let image = SVGIconsManager.shared.returnImage(forResourceName: "091-plus-1",
+                                                          size: Constants.buttonIconSize)
+        button.setImage(image, for: .normal)
         button.backgroundColor = .clear
         button.layer.cornerRadius = 12
         button.layer.masksToBounds = true
@@ -89,27 +103,37 @@ class DrawViewController: UIViewController {
     
     private lazy var settingsButton: ButtonWithShadow = {
         let button = ButtonWithShadow()
-        button.setImage(UIImage(named: "100-gear"), for: .normal)
+        let image = SVGIconsManager.shared.returnImage(forResourceName: "100-gear",
+                                                                 size: Constants.buttonIconSize)
+        button.setImage(image, for: .normal)
         button.addTarget(self, action: #selector(settingsButtonWasPressed), for: .touchUpInside)
         return button
     }()
     
     private lazy var turnOffSoundButton: ButtonWithShadow = {
         let button = ButtonWithShadow()
-        button.setImage(UIImage(named: "audioOn"), for: .normal)
+        let image = SVGIconsManager.shared.returnImage(forResourceName: "103-speaker-1",
+                                                       size: Constants.buttonIconSize)
+        button.setImage(image, for: .normal)
         return button
     }()
     
     private lazy var turnVibroButton: ButtonWithShadow = {
         let button = ButtonWithShadow()
-        button.setImage(UIImage(named: "telephone"), for: .normal)
+        let image = SVGIconsManager.shared.returnImage(forResourceName: "102-telephone-call-1",
+                                                       size: Constants.buttonIconSize)
+        button.setImage(image, for: .normal)
         return button
     }()
     
     private lazy var magicStickButton: ButtonWithShadow = {
         let button = ButtonWithShadow()
-        button.setImage(UIImage(named: "magic stick"), for: .normal)
-        button.setImage(UIImage(named: "magic stickSelected"), for: .highlighted)
+        let imageOne = SVGIconsManager.shared.returnImage(forResourceName: "magic_stick",
+                                                          size: CGSize(width: 32, height: 29.41))
+        let imageTwo = SVGIconsManager.shared.returnImage(forResourceName: "021-magic-wand",
+                                                          size: CGSize(width: 32, height: 29.41))
+        button.setImage(imageOne, for: .normal)
+        button.setImage(imageTwo, for: .highlighted)
         button.addTarget(self, action: #selector(magicStickButtonWasPressed), for: .touchUpInside)
         return button
     }()
@@ -118,15 +142,21 @@ class DrawViewController: UIViewController {
         button.backgroundColor = #colorLiteral(red: 0.393315196, green: 0.2743449807, blue: 0.8032925725, alpha: 1)
         button.layer.cornerRadius = 9
         button.layer.masksToBounds = true
-        button.setImage(UIImage(named: "iIcon"), for: .normal)
+        let image = SVGIconsManager.shared.returnImage(forResourceName: "Group 23",
+                                                          size: CGSize(width: 4, height: 10))
+        button.setImage(image, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(magicStickInfoButtonWasPressed), for: .touchUpInside)
         return button
     }()
     private lazy var loupeButton: ButtonWithShadow = {
         let button = ButtonWithShadow()
-        button.setImage(UIImage(named: "magic search"), for: .normal)
-        button.setImage(UIImage(named: "magic searchSelected"), for: .highlighted)
+        let imageOne = SVGIconsManager.shared.returnImage(forResourceName: "magic search",
+                                                          size: CGSize(width: 32.45, height: 29))
+        let imageTwo = SVGIconsManager.shared.returnImage(forResourceName: "022-magic-magnifier",
+                                                          size: CGSize(width: 32.45, height: 29))
+        button.setImage(imageOne, for: .normal)
+        button.setImage(imageTwo, for: .highlighted)
         button.addTarget(self, action: #selector(loupeButtonWasPressed), for: .touchUpInside)
         return button
     }()
@@ -180,11 +210,13 @@ class DrawViewController: UIViewController {
     @objc private func settingsButtonWasPressed() {
         var imageName = ""
         if turnVibroButton.isHidden {
-            imageName = "gearSelected"
+            imageName = "005-settings"
         } else {
             imageName = "100-gear"
         }
-        settingsButton.setImage(UIImage(named: imageName), for: .normal)
+        let image = SVGIconsManager.shared.returnImage(forResourceName: imageName,
+                                                       size: CGSize(width: 24, height: 24))
+        settingsButton.setImage(image, for: .normal)
         UIView.animate(withDuration: 0.3) { [unowned self] in
             self.turnVibroButton.isHidden = !self.turnVibroButton.isHidden
             self.turnOffSoundButton.isHidden = !self.turnOffSoundButton.isHidden
@@ -465,7 +497,9 @@ class DrawViewController: UIViewController {
         shopTopView.widthAnchor.constraint(equalToConstant: Constants.shopTopViewWidth).isActive = true
         shopTopView.topAnchor.constraint(equalTo: topContentView.topAnchor).isActive = true
         
-        let paintImageView = UIImageView(image: UIImage(named: "paint24"))
+        let image = SVGIconsManager.shared.returnImage(forResourceName: "magic fill",
+                                                       size: CGSize(width: 31.47, height: 24))
+        let paintImageView = UIImageView(image: image)
         paintImageView.translatesAutoresizingMaskIntoConstraints = false
         
         shopTopView.addSubview(paintImageView)

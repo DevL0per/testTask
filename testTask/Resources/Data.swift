@@ -9,7 +9,6 @@
 import UIKit
 import Macaw
 
-
 let firstSectionDrawsData: [DrawAreaModel] = [
     DrawAreaModel(id: 1, imagePathWithNumbers: "firstDrawWithNumbers", imagePathWithoutNumbers: "firstDrawNoNumbers",
                   nodes: [22, 43, 5, 8, 49, 7],
@@ -47,8 +46,8 @@ let thirdSectionDrawsData: [DrawAreaModel] = [
 ]
 
 let drawsSections: [DrawSection] = [
-    DrawSection(icon: UIImage(named: "animalsSectionIcon")!, nameOfSection: "ANIMALS", draws: firstSectionDrawsData),
-    DrawSection(icon: UIImage(named: "flowerSectionIcon")!, nameOfSection: "FLOWERS", draws: secondSectionDrawsData),
-    DrawSection(icon: UIImage(named: "birdsSectionIcon")!, nameOfSection: "BIRDS", draws: thirdSectionDrawsData)
+    DrawSection(icon: "071-jaguar-1", nameOfSection: "ANIMALS", draws: firstSectionDrawsData),
+    DrawSection(icon: "072-flower-1", nameOfSection: "FLOWERS", draws: secondSectionDrawsData),
+    DrawSection(icon: "073-bird-2", nameOfSection: "BIRDS", draws: thirdSectionDrawsData)
 ]
 
