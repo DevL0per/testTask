@@ -270,19 +270,17 @@ class DrawViewController: UIViewController {
         }
     }
     
-    private var previousColorizedColorIndexByLoupe: Int?
+    private var previousColorizedColorsIndexByLoupe: [Int] = []
     @objc private func loupeButtonWasPressed() {
         if currentColor != Color.white {
             if !hasUserTappedOnTheBoosters {
                 UserDefaultsManager.shared.userTapOnTheBoosterForTheFirstTime()
                 hasUserTappedOnTheBoosters = true
             } else {
-                if let colorizedColorIndex = previousColorizedColorIndexByLoupe {
-                    if colorizedColorIndex == currentColorIndex {
-                        return
-                    }
+                if previousColorizedColorsIndexByLoupe.contains(currentColorIndex) {
+                    return
                 }
-                previousColorizedColorIndexByLoupe = currentColorIndex
+                previousColorizedColorsIndexByLoupe.append(currentColorIndex)
                 var isAllNodesColorized = true
                 if numberOfPaints >= Constants.magicLoupeCost {
                     for valueTag in 1...drawAreaModel.nodes[currentColorIndex] {
