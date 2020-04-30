@@ -476,10 +476,10 @@ class DrawViewController: UIViewController {
     
     private func layoutBottomView() {
         view.addSubview(bottomView)
-        
+        let margins = view.layoutMarginsGuide
         bottomView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15).isActive = true
         bottomView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        bottomView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
         bottomView.heightAnchor.constraint(equalToConstant: Constants.bottomViewHeight).isActive = true
     }
     
@@ -562,7 +562,7 @@ class DrawViewController: UIViewController {
         drawArea.topAnchor.constraint(equalTo: topContentView.bottomAnchor, constant: 34).isActive = true
         drawArea.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         drawArea.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        drawArea.bottomAnchor.constraint(equalTo: bottomView.topAnchor, constant: -30).isActive = true
+        drawArea.bottomAnchor.constraint(equalTo: bottomView.topAnchor, constant: -34).isActive = true
     }
     
 }
