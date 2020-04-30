@@ -21,6 +21,7 @@ class MenuBarCollectionViewCell: UICollectionViewCell {
     
     override var isHighlighted: Bool {
         didSet {
+            if isSelected { return }
             let iconName = isHighlighted ? imageName+"Selected" : imageName
             SVGIconsManager.shared.setImage(forResourceName: iconName,
                                             size: MenuBarCollectionViewCell.size, inObject: iconImageView)
@@ -30,6 +31,7 @@ class MenuBarCollectionViewCell: UICollectionViewCell {
     override var isSelected: Bool {
         didSet {
             let iconName = isSelected ? imageName+"Selected" : imageName
+            isHighlighted = isSelected ? true : false
             SVGIconsManager.shared.setImage(forResourceName: iconName,
                                             size: MenuBarCollectionViewCell.size, inObject: iconImageView)
         }
