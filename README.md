@@ -1,4 +1,4 @@
-iOS 13 Native draw by numbers application
+iOS 13 Native coloring by numbers application
 =====================
 
 How it works
